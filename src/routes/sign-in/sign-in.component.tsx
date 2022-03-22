@@ -6,7 +6,8 @@ import {
 const SignIn: React.FC = () => {
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
-    createUserDocumentFromAuth(user);
+    const userDocRef = await createUserDocumentFromAuth(user);
+    console.log(userDocRef);
   };
 
   return (
