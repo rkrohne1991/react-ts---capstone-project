@@ -1,6 +1,6 @@
 import "./App.scss";
-import "./categories.styles.scss";
-import CategoryItem from "./components/category-item/category-item.component";
+
+import Directory from "./components/directory/directory.component";
 
 const App: React.FC = () => {
   const categories = [
@@ -30,13 +30,7 @@ const App: React.FC = () => {
       imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
     },
   ];
-  return (
-    <div className="categories-container">
-      {categories.map(({ id, title, imageUrl }) => (
-        <CategoryItem key={id} id={id} title={title} imageUrl={imageUrl} />
-      ))}
-    </div>
-  );
+  return <Directory categories={categories} />;
 };
 
 export default App;
