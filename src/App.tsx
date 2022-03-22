@@ -1,4 +1,5 @@
 import "./App.scss";
+import "./categories.styles.scss";
 
 const App: React.FC = () => {
   const categories = [
