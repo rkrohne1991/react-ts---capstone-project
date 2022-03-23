@@ -113,7 +113,7 @@ const SignUpForm: React.FC = () => {
         />
 
         <FormInput
-          label="PasConfirm Passwordsword"
+          label="Confirm Password"
           inputOptions={{
             name: "confirmPassword",
             type: "password",
@@ -123,7 +123,7 @@ const SignUpForm: React.FC = () => {
           changeHandler={handleChange}
         />
 
-        <Button type="submit">Signup</Button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );

@@ -1,8 +1,7 @@
 import classes from "./button.module.scss";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonType?: string;
-  type: "button" | "submit" | "reset" | undefined;
 }
 
 interface ButtonTypeClasses {
@@ -14,13 +13,13 @@ const BUTTON_TYPE_CLASSES: ButtonTypeClasses = {
   inverted: classes["inverted"],
 };
 
-const Button: React.FC<ButtonProps> = ({ buttonType, type, children }) => {
+const Button: React.FC<ButtonProps> = ({ buttonType, children, ...props }) => {
   const buttonClass = buttonType
     ? `${classes["button-container"]} ${BUTTON_TYPE_CLASSES[buttonType]}`
     : `${classes["button-container"]}`;
 
   return (
-    <button className={buttonClass} type={type}>
+    <button className={buttonClass} {...props}>
       {children}
     </button>
   );
