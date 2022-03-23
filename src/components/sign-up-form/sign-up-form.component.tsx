@@ -81,46 +81,38 @@ const SignUpForm: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Display Name"
-          inputOptions={{
-            name: "displayName",
-            type: "text",
-            value: displayName,
-          }}
+          name="displayName"
+          type="text"
+          value={displayName}
           required={true}
-          changeHandler={handleChange}
+          onChange={handleChange}
         />
 
         <FormInput
           label="Email"
-          inputOptions={{
-            name: "email",
-            type: "email",
-            value: email,
-          }}
+          name="email"
+          type="email"
+          value={email}
           required={true}
-          changeHandler={handleChange}
+          onChange={handleChange}
         />
 
         <FormInput
           label="Password"
-          inputOptions={{
-            name: "password",
-            type: "password",
-            value: password,
-          }}
+          name="password"
+          type="password"
+          value={password}
           required={true}
-          changeHandler={handleChange}
+          onChange={handleChange}
         />
 
         <FormInput
           label="Confirm Password"
-          inputOptions={{
-            name: "confirmPassword",
-            type: "password",
-            value: confirmPassword,
-          }}
+          name="confirmPassword"
+          type="password"
+          value={confirmPassword}
           required={true}
-          changeHandler={handleChange}
+          onChange={handleChange}
         />
 
         <Button type="submit">Sign Up</Button>

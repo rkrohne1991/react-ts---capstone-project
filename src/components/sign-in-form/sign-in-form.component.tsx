@@ -65,24 +65,20 @@ const SignInForm: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"
-          inputOptions={{
-            name: "email",
-            type: "email",
-            value: email,
-          }}
+          name="email"
+          type="email"
+          value={email}
           required={true}
-          changeHandler={handleChange}
+          onChange={handleChange}
         />
 
         <FormInput
           label="Password"
-          inputOptions={{
-            name: "password",
-            type: "password",
-            value: password,
-          }}
+          name="password"
+          type="password"
+          value={password}
           required={true}
-          changeHandler={handleChange}
+          onChange={handleChange}
         />
 
         <div className={classes["buttons-container"]}>

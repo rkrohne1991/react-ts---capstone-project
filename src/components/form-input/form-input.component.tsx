@@ -1,37 +1,22 @@
 import classes from "./form-input.module.scss";
 
-interface FormInputOptions {
-  [key: string]: string;
-}
-
-interface FormInputProps {
+interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  changeHandler(event: React.ChangeEvent<HTMLInputElement>): void;
-  inputOptions: FormInputOptions;
-  required: boolean;
 }
 
-const FormInput: React.FC<FormInputProps> = ({
-  label,
-  changeHandler,
-  inputOptions,
-  required,
-}) => {
-  const formLabelClass = inputOptions.value.length
+const FormInput: React.FC<FormInputProps> = ({ ...props }) => {
+  const propsValueLength = new String(props.value).length;
+
+  const formLabelClass = propsValueLength
     ? `${classes["form-input-label"]} ${classes["shrink"]}`
     : classes["form-input-label"];
 
   return (
     <div className={classes["group"]}>
-      <input
-        className={classes["form-input"]}
-        {...inputOptions}
-        onChange={changeHandler}
-        required={required}
-      />
-      {label && (
-        <label className={formLabelClass} htmlFor={inputOptions.name}>
-          {label}
+      <input className={classes["form-input"]} {...props} />
+      {props.label && (
+        <label className={formLabelClass} htmlFor={props.name}>
+          {props.label}
         </label>
       )}
     </div>
