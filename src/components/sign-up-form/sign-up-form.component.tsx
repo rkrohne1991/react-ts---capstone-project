@@ -1,5 +1,8 @@
-import { FirebaseError } from "firebase/app";
 import { useState } from "react";
+import { FirebaseError } from "firebase/app";
+
+import FormInput from "../form-input/form-input.component";
+
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -72,40 +75,48 @@ const SignUpForm: React.FC = () => {
     <div>
       <h1>Sign up with your email and password</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="">Display Name</label>
-        <input
-          name="displayName"
-          type="text"
-          required
-          onChange={handleChange}
-          value={displayName}
+        <FormInput
+          label="Display Name"
+          inputOptions={{
+            name: "displayName",
+            type: "text",
+            value: displayName,
+          }}
+          required={true}
+          changeHandler={handleChange}
         />
 
-        <label htmlFor="">Email</label>
-        <input
-          name="email"
-          type="email"
-          required
-          onChange={handleChange}
-          value={email}
+        <FormInput
+          label="Email"
+          inputOptions={{
+            name: "email",
+            type: "email",
+            value: email,
+          }}
+          required={true}
+          changeHandler={handleChange}
         />
 
-        <label htmlFor="">Password</label>
-        <input
-          name="password"
-          type="password"
-          required
-          onChange={handleChange}
-          value={password}
+        <FormInput
+          label="Password"
+          inputOptions={{
+            name: "password",
+            type: "password",
+            value: password,
+          }}
+          required={true}
+          changeHandler={handleChange}
         />
 
-        <label htmlFor="">Confirm Password</label>
-        <input
-          name="confirmPassword"
-          type="password"
-          required
-          onChange={handleChange}
-          value={confirmPassword}
+        <FormInput
+          label="PasConfirm Passwordsword"
+          inputOptions={{
+            name: "confirmPassword",
+            type: "password",
+            value: confirmPassword,
+          }}
+          required={true}
+          changeHandler={handleChange}
         />
 
         <button type="submit">Sign Up</button>
