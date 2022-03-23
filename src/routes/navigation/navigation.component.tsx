@@ -16,7 +16,7 @@ const Navigation: React.FC = () => {
           <Link className={classes["nav-link"]} to="/shop">
             SHOP
           </Link>
-          <Link className={classes["nav-link"]} to="/sign-in">
+          <Link className={classes["nav-link"]} to="/auth">
             SIGN IN
           </Link>
         </div>

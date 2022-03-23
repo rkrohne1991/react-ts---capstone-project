@@ -4,7 +4,7 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 
-const SignIn: React.FC = () => {
+const Authentication: React.FC = () => {
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
     const userDocRef = await createUserDocumentFromAuth(user);
@@ -21,4 +21,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default Authentication;
