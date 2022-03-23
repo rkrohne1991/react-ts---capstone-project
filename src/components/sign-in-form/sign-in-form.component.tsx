@@ -55,6 +55,15 @@ const SignInForm: React.FC = () => {
       resetFormFields();
     } catch (error: unknown) {
       const err = error as FirebaseError;
+
+      switch (err.code) {
+        case "auth/wrong-password":
+        case "auth/user-not-found":
+          alert("Incorrect email or password!");
+          break;
+        default:
+          console.log(error);
+      }
     }
   };
 
