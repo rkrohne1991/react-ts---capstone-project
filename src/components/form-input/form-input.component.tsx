@@ -5,7 +5,7 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const FormInput: React.FC<FormInputProps> = ({ ...props }) => {
-  const propsValueLength = new String(props.value).length;
+  const propsValueLength = String(props.value).length;
 
   const formLabelClass = propsValueLength
     ? `${classes["form-input-label"]} ${classes["shrink"]}`

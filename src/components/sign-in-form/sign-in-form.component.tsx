@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FirebaseError } from "firebase/app";
 
 import FormInput from "../form-input/form-input.component";
@@ -11,6 +11,7 @@ import {
 
 import classes from "./sign-in-form.module.scss";
 import Button from "../UI/button/button.component";
+import { UserContext } from "../../contexts/user.context";
 
 interface FormFields {
   email: string;
@@ -25,6 +26,8 @@ const defaultFormFields: FormFields = {
 const SignInForm: React.FC = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+
+  const currentUserContext = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -51,7 +54,11 @@ const SignInForm: React.FC = () => {
         email,
         password
       );
-      console.log(response);
+
+      if (response && currentUserContext !== null) {
+        const { setCurrentUser } = currentUserContext;
+        setCurrentUser(response.user);
+      }
       resetFormFields();
     } catch (error: unknown) {
       const err = error as FirebaseError;
