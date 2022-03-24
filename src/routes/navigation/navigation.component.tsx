@@ -5,12 +5,29 @@ import { Outlet } from "react-router-dom";
 import classes from "./navigation.module.scss";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { UserContext } from "../../contexts/user.context";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const Navigation: React.FC = () => {
-  const currentUser = useContext(UserContext)?.currentUser || null;
-  if (currentUser !== null) {
-    console.log(currentUser);
-  }
+  const currentUser = useContext(UserContext)?.currentUser;
+  const setCurrentUser = useContext(UserContext)?.setCurrentUser;
+
+  const signOutHandler = async (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.preventDefault();
+    setCurrentUser && setCurrentUser(null);
+    await signOutUser();
+  };
+
+  const signOut = (
+    <span className={classes["nav-link"]} onClick={signOutHandler}>
+      SIGN OUT
+    </span>
+  );
+
+  const signIn = (
+    <Link className={classes["nav-link"]} to="/auth">
+      SIGN IN
+    </Link>
+  );
   return (
     <Fragment>
       <div className={classes["navigation"]}>
@@ -21,9 +38,7 @@ const Navigation: React.FC = () => {
           <Link className={classes["nav-link"]} to="/shop">
             SHOP
           </Link>
-          <Link className={classes["nav-link"]} to="/auth">
-            SIGN IN
-          </Link>
+          {currentUser ? signOut : signIn}
         </div>
       </div>
       <Outlet />
