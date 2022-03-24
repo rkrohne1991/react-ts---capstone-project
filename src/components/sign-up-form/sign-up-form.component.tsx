@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FirebaseError } from "firebase/app";
 
 import FormInput from "../form-input/form-input.component";
@@ -10,7 +10,6 @@ import {
 
 import classes from "./sign-up-form.module.scss";
 import Button from "../UI/button/button.component";
-import { UserContext } from "../../contexts/user.context";
 
 interface FormFields {
   displayName: string;
@@ -29,8 +28,6 @@ const defaultFormFields: FormFields = {
 const SignUpForm: React.FC = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-
-  const currentUserContext = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -64,9 +61,7 @@ const SignUpForm: React.FC = () => {
         password
       );
 
-      if (response && currentUserContext !== null) {
-        const { setCurrentUser } = currentUserContext;
-        setCurrentUser(response.user);
+      if (response) {
         await createUserDocumentFromAuth(response.user, { displayName });
       }
 

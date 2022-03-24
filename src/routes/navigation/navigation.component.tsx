@@ -9,16 +9,9 @@ import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const Navigation: React.FC = () => {
   const currentUser = useContext(UserContext)?.currentUser;
-  const setCurrentUser = useContext(UserContext)?.setCurrentUser;
-
-  const signOutHandler = async (event: React.MouseEvent<HTMLSpanElement>) => {
-    event.preventDefault();
-    setCurrentUser && setCurrentUser(null);
-    await signOutUser();
-  };
 
   const signOut = (
-    <span className={classes["nav-link"]} onClick={signOutHandler}>
+    <span className={classes["nav-link"]} onClick={signOutUser}>
       SIGN OUT
     </span>
   );

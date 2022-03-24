@@ -1,17 +1,15 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FirebaseError } from "firebase/app";
 
 import FormInput from "../form-input/form-input.component";
 
 import {
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
 
 import classes from "./sign-in-form.module.scss";
 import Button from "../UI/button/button.component";
-import { UserContext } from "../../contexts/user.context";
 
 interface FormFields {
   email: string;
@@ -27,15 +25,12 @@ const SignInForm: React.FC = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  const currentUserContext = useContext(UserContext);
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,11 +49,7 @@ const SignInForm: React.FC = () => {
         email,
         password
       );
-
-      if (response && currentUserContext !== null) {
-        const { setCurrentUser } = currentUserContext;
-        setCurrentUser(response.user);
-      }
+      console.log(response);
       resetFormFields();
     } catch (error: unknown) {
       const err = error as FirebaseError;
