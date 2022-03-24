@@ -12,7 +12,7 @@ import CartIcon from "../../components/UI/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/UI/cart-dropdown/cart-dropdown.component";
 
 const Navigation: React.FC = () => {
-  const currentUser = useContext(UserContext)?.currentUser;
+  const { currentUser } = useContext(UserContext);
   const { isCartOpen } = useContext(CartContext);
 
   const signOut = (
