@@ -3,6 +3,7 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useEffect,
   useState,
 } from "react";
 import { CartItem } from "../state/cartItem";
@@ -28,6 +29,7 @@ export interface AppContextInterface {
   setIsCartOpen: Dispatch<SetStateAction<boolean>>;
   cartItems: CartItem[] | [];
   addItemToCart: (value: Product) => void;
+  cartCount: number;
 }
 
 export const cartContextDefaultValue: AppContextInterface = {
@@ -35,6 +37,7 @@ export const cartContextDefaultValue: AppContextInterface = {
   setIsCartOpen: () => false,
   cartItems: [],
   addItemToCart: () => {},
+  cartCount: 0,
 };
 
 export const CartContext = createContext<AppContextInterface>(
@@ -44,11 +47,26 @@ export const CartContext = createContext<AppContextInterface>(
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartCount, setCartCount] = useState<number>(0);
+
+  useEffect(() => {
+    const cartCount = cartItems.reduce(
+      (total, cartItem) => total + cartItem.quantity,
+      0
+    );
+    setCartCount(cartCount);
+  }, [cartItems]);
 
   const addItemToCart = (productToAdd: Product) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
-  const value = { isCartOpen, setIsCartOpen, cartItems, addItemToCart };
+  const value = {
+    isCartOpen,
+    setIsCartOpen,
+    cartItems,
+    addItemToCart,
+    cartCount,
+  };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
