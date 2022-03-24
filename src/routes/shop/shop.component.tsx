@@ -10,14 +10,8 @@ const Shop: React.FC = () => {
 
   return (
     <div className={classes["products-container"]}>
-      {products.map(({ id, name, imageUrl, price }) => (
-        <ProductCard
-          key={id}
-          id={id}
-          name={name}
-          imageUrl={imageUrl}
-          price={price}
-        />
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );
