@@ -3,11 +3,13 @@ import { createContext, ReactNode, useState } from "react";
 import SHOP_DATA from "../shop-data.json";
 import { Product } from "../state/product";
 
-interface Products {
+interface AppContextInterface {
   products: Product[];
 }
 
-export const ProductContext = createContext<Products>({} as Products);
+export const ProductContext = createContext<AppContextInterface>(
+  {} as AppContextInterface
+);
 
 export const ProductsProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<Product[]>(SHOP_DATA);
