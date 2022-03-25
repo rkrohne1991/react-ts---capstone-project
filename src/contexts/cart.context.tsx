@@ -24,11 +24,27 @@ const addCartItem = (cartItems: CartItem[], productToAdd: Product) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
+const removeCartItem = (cartItems: CartItem[], productToRemove: Product) => {
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === productToRemove.id
+  );
+
+  if (existingCartItem?.quantity === 1)
+    return cartItems.filter((cartItem) => cartItem.id !== productToRemove.id);
+
+  return cartItems.map((cartItem) =>
+    cartItem.id === productToRemove.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+};
+
 export interface AppContextInterface {
   isCartOpen: boolean;
   setIsCartOpen: Dispatch<SetStateAction<boolean>>;
   cartItems: CartItem[] | [];
   addItemToCart: (value: Product) => void;
+  removeItemFromCart: (value: Product) => void;
   cartCount: number;
 }
 
@@ -37,6 +53,7 @@ export const cartContextDefaultValue: AppContextInterface = {
   setIsCartOpen: () => false,
   cartItems: [],
   addItemToCart: () => {},
+  removeItemFromCart: () => {},
   cartCount: 0,
 };
 
@@ -60,11 +77,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const addItemToCart = (productToAdd: Product) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
+
+  const removeItemFromCart = (productToRemove: Product) => {
+    setCartItems(removeCartItem(cartItems, productToRemove));
+  };
+
   const value = {
     isCartOpen,
     setIsCartOpen,
     cartItems,
     addItemToCart,
+    removeItemFromCart,
     cartCount,
   };
 
