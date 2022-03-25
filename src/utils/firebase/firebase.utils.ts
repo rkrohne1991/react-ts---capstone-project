@@ -18,7 +18,15 @@ import {
   NextOrObserver,
 } from "firebase/auth";
 
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+  writeBatch,
+} from "firebase/firestore";
+import { ShopData } from "../../state/shop-data";
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyAYAbo65mY08quMBE9MjtzSwOLYBMcCLRg",
@@ -44,6 +52,22 @@ export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
+
+export const addCollectionAndDocuments = async (
+  collectionKey: string,
+  objectsToAdd: ShopData[]
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((object: any) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+  console.log("done");
+};
 
 export const createUserDocumentFromAuth = async (
   userAuth: any,
