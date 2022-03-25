@@ -1,12 +1,8 @@
+import { CartItem as CartItemState } from "../../state/cartItem";
 import classes from "./cart-item.module.scss";
 
 interface CartItemProps {
-  cartItem: {
-    name: string;
-    imageUrl: string;
-    price: number;
-    quantity: number;
-  };
+  cartItem: CartItemState;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ cartItem }) => {
