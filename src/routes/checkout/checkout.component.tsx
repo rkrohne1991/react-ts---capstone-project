@@ -6,7 +6,7 @@ import { CartContext } from "../../contexts/cart.context";
 import classes from "./checkout.module.scss";
 
 const Checkout: React.FC = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, cartTotal } = useContext(CartContext);
 
   return (
     <div className={classes["checkout-container"]}>
@@ -30,7 +30,7 @@ const Checkout: React.FC = () => {
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} checkoutItem={cartItem} />
       ))}
-      <span className={classes["total"]}>Total: 0</span>
+      <span className={classes["total"]}>Total: ${cartTotal}</span>
     </div>
   );
 };

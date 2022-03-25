@@ -50,6 +50,7 @@ export interface AppContextInterface {
   removeItemFromCart: (value: Product) => void;
   clearItemFromCart: (value: Product) => void;
   cartCount: number;
+  cartTotal: number;
 }
 
 export const cartContextDefaultValue: AppContextInterface = {
@@ -60,6 +61,7 @@ export const cartContextDefaultValue: AppContextInterface = {
   removeItemFromCart: () => {},
   clearItemFromCart: () => {},
   cartCount: 0,
+  cartTotal: 0,
 };
 
 export const CartContext = createContext<AppContextInterface>(
@@ -70,6 +72,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [cartCount, setCartCount] = useState<number>(0);
+  const [cartTotal, setCartTotal] = useState<number>(0);
 
   useEffect(() => {
     const cartCount = cartItems.reduce(
@@ -77,6 +80,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       0
     );
     setCartCount(cartCount);
+  }, [cartItems]);
+
+  useEffect(() => {
+    const cartTotal = cartItems.reduce(
+      (total, cartItem) => total + cartItem.quantity * cartItem.price,
+      0
+    );
+    setCartTotal(cartTotal);
   }, [cartItems]);
 
   const addItemToCart = (productToAdd: Product) =>
@@ -96,6 +107,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     removeItemFromCart,
     clearItemFromCart,
     cartCount,
+    cartTotal,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
