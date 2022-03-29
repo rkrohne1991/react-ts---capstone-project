@@ -31,7 +31,7 @@ import {
   setDoc,
   writeBatch,
 } from "firebase/firestore";
-import { ShopData } from "../../state/shop-data";
+import { ProductObject, ShopData } from "../../state/shop-data";
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyAYAbo65mY08quMBE9MjtzSwOLYBMcCLRg",
@@ -82,7 +82,7 @@ export const getCategoriesAndDocuments = async () => {
 
   const categoryMap = querySnapshot.docs.reduce(
     (
-      acc: { [key: string]: string },
+      acc: { [key: string]: any },
       docSnapshot: QueryDocumentSnapshot<DocumentData>
     ) => {
       const { title, items } = docSnapshot.data();
@@ -92,7 +92,7 @@ export const getCategoriesAndDocuments = async () => {
     {}
   );
 
-  return categoryMap;
+  return categoryMap as ProductObject;
 };
 
 export const createUserDocumentFromAuth = async (

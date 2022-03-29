@@ -5,7 +5,10 @@ export interface Product {
   price: number;
 }
 
+export interface ProductObject {
+  [title: string]: Product[];
+}
+
 export interface ShopData {
-  title: string;
-  items: Product[];
+  categoriesMap: ProductObject;
 }
