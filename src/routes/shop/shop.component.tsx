@@ -1,12 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 
 import CategoriesPreview from "../categories-preview/categories-preview.component";
+import Category from "../category/category.module";
 // import classes from "./shop.module.scss";
 
 const Shop: React.FC = () => {
   return (
     <Routes>
       <Route index element={<CategoriesPreview />} />
+      <Route path=":category" element={<Category />} />
     </Routes>
   );
 };
