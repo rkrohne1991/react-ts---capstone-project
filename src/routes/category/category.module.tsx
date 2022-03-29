@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductCard from "../../components/product-card/product-card.component";
 
@@ -16,14 +16,23 @@ const Category: React.FC = () => {
     category && setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
 
-  return (
-    <div className={classes["category-container"]}>
-      {products &&
-        products.map((product: Product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-    </div>
+  const productsLayout = (
+    <Fragment>
+      <h2 className={classes["category-title"]}>
+        {category?.toLocaleUpperCase()}
+      </h2>
+      <div className={classes["category-container"]}>
+        {products &&
+          products.map((product: Product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+      </div>
+    </Fragment>
   );
+
+  const emptyLayout = <div />;
+
+  return <Fragment>{products ? productsLayout : emptyLayout}</Fragment>;
 };
 
 export default Category;
