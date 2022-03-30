@@ -3,16 +3,24 @@ import { DirectoryContainer } from "./directory.styles";
 import { Category } from "../../state/category";
 import DirectoryItem from "../directory-item/directory-item.component";
 
-interface DirectoryProps {
-  categories: Category[];
-}
+import CATEGORIES_DATA from "../../categories-data.json";
 
-const Directory: React.FC<DirectoryProps> = ({ categories }) => (
-  <DirectoryContainer>
-    {categories.map(({ id, title, imageUrl }) => (
-      <DirectoryItem key={id} id={id} title={title} imageUrl={imageUrl} />
-    ))}
-  </DirectoryContainer>
-);
+const Directory: React.FC = () => {
+  const categories: Category[] = CATEGORIES_DATA;
+
+  return (
+    <DirectoryContainer>
+      {categories.map(({ id, title, imageUrl, route }) => (
+        <DirectoryItem
+          key={id}
+          id={id}
+          title={title}
+          imageUrl={imageUrl}
+          route={route}
+        />
+      ))}
+    </DirectoryContainer>
+  );
+};
 
 export default Directory;
