@@ -8,8 +8,9 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 
-import classes from "./sign-up-form.module.scss";
 import Button from "../UI/button/button.component";
+
+import { SignUpContainer } from "./sign-up-form.styles";
 
 interface FormFields {
   displayName: string;
@@ -76,7 +77,7 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <div className={classes["sign-up-container"]}>
+    <SignUpContainer>
       <h2>Don't have the account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -118,7 +119,7 @@ const SignUpForm: React.FC = () => {
 
         <Button type="submit">Sign Up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 

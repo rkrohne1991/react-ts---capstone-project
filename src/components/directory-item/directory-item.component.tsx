@@ -1,17 +1,19 @@
 import { Category } from "../../state/category";
-import classes from "./directory-item.module.scss";
+
+import {
+  BackgroundImage,
+  Body,
+  DirectoryItemContainer,
+} from "./directory-item.styles";
 
 const DirectoryItem: React.FC<Category> = ({ id, title, imageUrl }) => (
-  <div key={id} className={classes["directory-item-container"]}>
-    <div
-      className={classes["background-image"]}
-      style={{ backgroundImage: `url(${imageUrl})` }}
-    />
-    <div className={classes["body"]}>
+  <DirectoryItemContainer key={id}>
+    <BackgroundImage imageUrl={imageUrl} />
+    <Body>
       <h2>{title}</h2>
       <p>Shop Now</p>
-    </div>
-  </div>
+    </Body>
+  </DirectoryItemContainer>
 );
 
 export default DirectoryItem;

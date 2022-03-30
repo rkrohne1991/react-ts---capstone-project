@@ -1,4 +1,4 @@
-import classes from "./form-input.module.scss";
+import { FormInputLabel, Input, Group } from "./form-input.styles";
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -7,19 +7,15 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const FormInput: React.FC<FormInputProps> = ({ ...props }) => {
   const propsValueLength = String(props.value).length;
 
-  const formLabelClass = propsValueLength
-    ? `${classes["form-input-label"]} ${classes["shrink"]}`
-    : classes["form-input-label"];
-
   return (
-    <div className={classes["group"]}>
-      <input className={classes["form-input"]} {...props} />
+    <Group>
+      <Input {...props} />
       {props.label && (
-        <label className={formLabelClass} htmlFor={props.name}>
+        <FormInputLabel shrink={propsValueLength} htmlFor={props.name}>
           {props.label}
-        </label>
+        </FormInputLabel>
       )}
-    </div>
+    </Group>
   );
 };
 

@@ -5,7 +5,7 @@ import ProductCard from "../../components/product-card/product-card.component";
 import { CategoriesContext } from "../../contexts/categories.context";
 import { Product } from "../../state/product";
 
-import classes from "./category.module.scss";
+import { CategoryContainer, Title } from "./category.styles";
 
 const Category: React.FC = () => {
   const { category } = useParams<{ category: string }>();
@@ -18,15 +18,13 @@ const Category: React.FC = () => {
 
   const productsLayout = (
     <Fragment>
-      <h2 className={classes["category-title"]}>
-        {category?.toLocaleUpperCase()}
-      </h2>
-      <div className={classes["category-container"]}>
+      <Title>{category?.toLocaleUpperCase()}</Title>
+      <CategoryContainer>
         {products &&
           products.map((product: Product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-      </div>
+      </CategoryContainer>
     </Fragment>
   );
 

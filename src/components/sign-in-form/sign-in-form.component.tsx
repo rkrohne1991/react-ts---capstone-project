@@ -8,8 +8,9 @@ import {
   signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
 
-import classes from "./sign-in-form.module.scss";
 import Button from "../UI/button/button.component";
+
+import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
 
 interface FormFields {
   email: string;
@@ -66,7 +67,7 @@ const SignInForm: React.FC = () => {
   };
 
   return (
-    <div className={classes["sign-in-container"]}>
+    <SignInContainer>
       <h2>Already have the account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -88,14 +89,14 @@ const SignInForm: React.FC = () => {
           onChange={handleChange}
         />
 
-        <div className={classes["buttons-container"]}>
+        <ButtonsContainer>
           <Button type="submit">Sign In</Button>
           <Button buttonType="google" type="button" onClick={signInWithGoogle}>
             Google Sign In
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
 

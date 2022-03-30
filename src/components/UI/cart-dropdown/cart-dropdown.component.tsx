@@ -7,7 +7,12 @@ import {
 import Button from "../button/button.component";
 import CartItem from "../../cart-item/cart-item.component";
 
-import classes from "./cart-dropdown.module.scss";
+import {
+  CartDropdownContainer,
+  EmptyMessage,
+  CartItems,
+} from "./cart-dropdown.styles";
+
 import { CartItem as CartItemElement } from "../../../state/cartItem";
 
 const CartDropdown: React.FC = () => {
@@ -22,14 +27,16 @@ const CartDropdown: React.FC = () => {
   };
 
   return (
-    <div className={classes["cart-dropdown-container"]}>
-      <div className={classes["cart-items"]}>
-        {cartItems.map((item: CartItemElement) => (
-          <CartItem key={item.id} cartItem={item} />
-        ))}
-      </div>
+    <CartDropdownContainer>
+      <CartItems>
+        {cartItems.length ? (
+          cartItems.map((item) => <CartItem key={item.id} cartItem={item} />)
+        ) : (
+          <EmptyMessage>Your cart is empty</EmptyMessage>
+        )}
+      </CartItems>
       <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
-    </div>
+    </CartDropdownContainer>
   );
 };
 

@@ -3,7 +3,12 @@ import { CartContext } from "../../contexts/cart.context";
 import { Product } from "../../state/product";
 import Button from "../UI/button/button.component";
 
-import classes from "./product-card.module.scss";
+import {
+  ProductCartContainer,
+  Footer,
+  Name,
+  Price,
+} from "./product-card.styles";
 
 interface ProductCardProps {
   product: Product;
@@ -17,16 +22,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     addItemToCart(product);
 
   return (
-    <div className={classes["product-card-container"]}>
+    <ProductCartContainer>
       <img src={imageUrl} alt={name} />
-      <div className={classes["footer"]}>
-        <span className={classes["name"]}>{name}</span>
-        <span className={classes["price"]}>{price}</span>
-      </div>
+      <Footer>
+        <Name>{name}</Name>
+        <Price>{price}</Price>
+      </Footer>
       <Button buttonType="inverted" onClick={addProductToCart}>
         Add to cart
       </Button>
-    </div>
+    </ProductCartContainer>
   );
 };
 export default ProductCard;

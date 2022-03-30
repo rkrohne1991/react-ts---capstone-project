@@ -1,4 +1,8 @@
-import classes from "./button.module.scss";
+import {
+  BaseButton,
+  GoogleSignInButton,
+  InvertedButton,
+} from "./button.styles";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonType?: string;
@@ -9,19 +13,25 @@ interface ButtonTypeClasses {
 }
 
 const BUTTON_TYPE_CLASSES: ButtonTypeClasses = {
-  google: classes["google-sign-in"],
-  inverted: classes["inverted"],
+  base: "base",
+  google: "google-sign-in",
+  inverted: "inverted",
+};
+
+const getButton = (buttonType: string | undefined) => {
+  switch (buttonType) {
+    case "google":
+      return GoogleSignInButton;
+    case "inverted":
+      return InvertedButton;
+    case undefined:
+    default:
+      return BaseButton;
+  }
 };
 
 const Button: React.FC<ButtonProps> = ({ buttonType, children, ...props }) => {
-  const buttonClass = buttonType
-    ? `${classes["button-container"]} ${BUTTON_TYPE_CLASSES[buttonType]}`
-    : `${classes["button-container"]}`;
-
-  return (
-    <button className={buttonClass} {...props}>
-      {children}
-    </button>
-  );
+  const CustomButton = getButton(buttonType);
+  return <CustomButton {...props}>{children}</CustomButton>;
 };
 export default Button;

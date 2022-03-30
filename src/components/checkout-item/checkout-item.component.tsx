@@ -2,7 +2,15 @@ import { useContext } from "react";
 
 import { CartContext } from "../../contexts/cart.context";
 import { CartItem } from "../../state/cartItem";
-import classes from "./checkout-item.module.scss";
+import {
+  CheckoutItemContainer,
+  ImageContainer,
+  BaseSpan,
+  Quantity,
+  Arrow,
+  Value,
+  RemoveButton,
+} from "./checkout-item.styles";
 
 interface CheckoutItemProps {
   checkoutItem: CartItem;
@@ -32,34 +40,21 @@ const CheckoutItem: React.FC<CheckoutItemProps> = ({ checkoutItem }) => {
     };
 
   return (
-    <div className={classes["checkout-item-container"]}>
-      <div className={classes["image-container"]}>
+    <CheckoutItemContainer>
+      <ImageContainer>
         <img src={imageUrl} alt={name} />
-      </div>
-      <div className={classes["name"]}>{name}</div>
-      <div className={classes["quantity"]}>
-        <span
-          className={classes["arrow"]}
-          onClick={decrementItemHandler(checkoutItem)}
-        >
-          &#10094;
-        </span>
-        <span className={classes["value"]}>{quantity}</span>
-        <span
-          className={classes["arrow"]}
-          onClick={incrementItemHandler(checkoutItem)}
-        >
-          &#10095;
-        </span>
-      </div>
-      <div className={classes["price"]}>${price}</div>
-      <div
-        className={classes["remove-button"]}
-        onClick={clearItemHandler(checkoutItem)}
-      >
+      </ImageContainer>
+      <BaseSpan>{name}</BaseSpan>
+      <Quantity>
+        <Arrow onClick={decrementItemHandler(checkoutItem)}>&#10094;</Arrow>
+        <Value>{quantity}</Value>
+        <Arrow onClick={incrementItemHandler(checkoutItem)}>&#10095;</Arrow>
+      </Quantity>
+      <BaseSpan>${price}</BaseSpan>
+      <RemoveButton onClick={clearItemHandler(checkoutItem)}>
         &#10005;
-      </div>
-    </div>
+      </RemoveButton>
+    </CheckoutItemContainer>
   );
 };
 

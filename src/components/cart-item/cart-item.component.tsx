@@ -1,5 +1,6 @@
 import { CartItem as CartItemState } from "../../state/cartItem";
-import classes from "./cart-item.module.scss";
+
+import { CartItemContainer, ItemDetails } from "./cart-item.styles";
 
 interface CartItemProps {
   cartItem: CartItemState;
@@ -9,15 +10,15 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
 
   return (
-    <div className={classes["cart-item-container"]}>
+    <CartItemContainer>
       <img src={imageUrl} alt={name} />
-      <div className={classes["item-details"]}>
-        <span className={classes["name"]}>{name}</span>
-        <span className={classes["price"]}>
+      <ItemDetails>
+        <span>{name}</span>
+        <span>
           {quantity} x ${price}
         </span>
-      </div>
-    </div>
+      </ItemDetails>
+    </CartItemContainer>
   );
 };
 
