@@ -1,12 +1,5 @@
 import { User } from "firebase/auth";
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useReducer,
-} from "react";
+import { createContext, ReactNode, useEffect, useReducer } from "react";
 import {
   createUserDocumentFromAuth,
   onAuthStateChangedListener,
@@ -14,7 +7,7 @@ import {
 
 interface AppContextInterface {
   currentUser: User | null;
-  setCurrentUser: Dispatch<SetStateAction<User | null>>;
+  setCurrentUser: React.Dispatch<any>;
 }
 
 export const userContextDefaultValue: AppContextInterface = {
@@ -62,7 +55,7 @@ const userReducer = (state: UsersState = initialState, action: Action) => {
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [{ currentUser }, dispatch] = useReducer(userReducer, initialState);
 
-  const setCurrentUser = (user: any) => {
+  const setCurrentUser = (user: User | null) => {
     dispatch({ type: UserActionType.SET_CURRENT_USER, payload: user });
   };
 
@@ -72,7 +65,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) createUserDocumentFromAuth(user);
       setCurrentUser(user);
-      console.log(user);
     });
 
     return unsubscribe;
