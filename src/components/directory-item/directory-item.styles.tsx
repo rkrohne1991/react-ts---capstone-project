@@ -9,7 +9,7 @@ export const BackgroundImage = styled.div<ImageURLprops>`
   height: 100%;
   background-size: cover;
   background-position: center;
-  background-image: ${(imageUrl) => `url(${imageUrl})`};
+  background-image: ${(imageProps) => `url(${imageProps.imageUrl})`};
 `;
 
 export const Body = styled.div`
