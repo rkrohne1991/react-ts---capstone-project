@@ -6,12 +6,14 @@ import {
 } from "../utils/firebase/firebase.utils";
 import { createAction } from "../utils/reducer/reducer.utils";
 
+type CurrentUser = User | null;
+
 interface AppContextInterface {
-  currentUser: User | null;
-  setCurrentUser: React.Dispatch<any>;
+  currentUser: CurrentUser;
+  setCurrentUser: React.Dispatch<CurrentUser>;
 }
 
-export const userContextDefaultValue: AppContextInterface = {
+const userContextDefaultValue: AppContextInterface = {
   currentUser: null,
   setCurrentUser: () => null,
 };
@@ -20,26 +22,26 @@ export const UserContext = createContext<AppContextInterface>(
   userContextDefaultValue
 );
 
-export enum UserActionType {
+enum UserActionType {
   SET_CURRENT_USER = "set_current_user",
 }
 
-export interface SetCurrentUserAction {
+interface SetCurrentUserAction {
   type: UserActionType.SET_CURRENT_USER;
-  payload: User | null;
+  payload: CurrentUser;
 }
 
-export type Action = SetCurrentUserAction;
+type Action = SetCurrentUserAction;
 
-interface UsersState {
-  currentUser: User | null;
+interface UserState {
+  currentUser: CurrentUser;
 }
 
-const initialState: UsersState = {
+const initialState: UserState = {
   currentUser: null,
 };
 
-const userReducer = (state: UsersState = initialState, action: Action) => {
+const userReducer = (state: UserState = initialState, action: Action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -56,7 +58,7 @@ const userReducer = (state: UsersState = initialState, action: Action) => {
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [{ currentUser }, dispatch] = useReducer(userReducer, initialState);
 
-  const setCurrentUser = (user: User | null) => {
+  const setCurrentUser = (user: CurrentUser) => {
     dispatch(createAction(UserActionType.SET_CURRENT_USER, user));
   };
 

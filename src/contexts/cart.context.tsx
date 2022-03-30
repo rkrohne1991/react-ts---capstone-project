@@ -1,10 +1,4 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useReducer,
-} from "react";
+import { createContext, ReactNode, useReducer } from "react";
 import { CartItem } from "../state/cartItem";
 import { Product } from "../state/product";
 import { createAction } from "../utils/reducer/reducer.utils";
@@ -44,7 +38,7 @@ const clearCartItem = (cartItems: CartItem[], cartItemToClear: Product) =>
 
 export interface AppContextInterface {
   isCartOpen: boolean;
-  setIsCartOpen: Dispatch<SetStateAction<boolean>>;
+  setIsCartOpen: React.Dispatch<boolean>;
   cartItems: CartItem[] | [];
   addItemToCart: (value: Product) => void;
   removeItemFromCart: (value: Product) => void;
@@ -53,7 +47,7 @@ export interface AppContextInterface {
   cartTotal: number;
 }
 
-export const cartContextDefaultValue: AppContextInterface = {
+const cartContextDefaultValue: AppContextInterface = {
   isCartOpen: false,
   setIsCartOpen: () => false,
   cartItems: [],
@@ -68,19 +62,38 @@ export const CartContext = createContext<AppContextInterface>(
   cartContextDefaultValue
 );
 
-const CartActionType = {
-  SET_CART_ITEMS: "set_cart_items",
-  SET_IS_CART_OPEN: "set_is_cart_open",
-};
+enum CartActionType {
+  SET_CART_ITEMS = "set_cart_items",
+  SET_IS_CART_OPEN = "set_is_cart_open",
+}
 
-const initialState = {
+interface SetCartItemsAction {
+  type: CartActionType.SET_CART_ITEMS;
+  payload: any;
+}
+
+interface SetIsCartOpenAction {
+  type: CartActionType.SET_IS_CART_OPEN;
+  payload: any;
+}
+
+type Action = SetCartItemsAction | SetIsCartOpenAction;
+
+interface CartState {
+  isCartOpen: boolean;
+  cartItems: CartItem[];
+  cartCount: number;
+  cartTotal: number;
+}
+
+const initialState: CartState = {
   isCartOpen: false,
   cartItems: [],
   cartCount: 0,
   cartTotal: 0,
 };
 
-const cartReducer = (state: any, action: any) => {
+const cartReducer = (state: CartState = initialState, action: Action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -103,14 +116,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [{ isCartOpen, cartItems, cartCount, cartTotal }, dispatch] =
     useReducer(cartReducer, initialState);
 
-  const updateCartItemReducer = (newCartItems: any) => {
+  const updateCartItemReducer = (newCartItems: CartItem[]) => {
     const cartCount = newCartItems.reduce(
-      (total: any, cartItem: any) => total + cartItem.quantity,
+      (total: number, cartItem: CartItem) => total + cartItem.quantity,
       0
     );
 
     const cartTotal = newCartItems.reduce(
-      (total: any, cartItem: any) => total + cartItem.quantity * cartItem.price,
+      (total: number, cartItem: CartItem) =>
+        total + cartItem.quantity * cartItem.price,
       0
     );
 
@@ -138,7 +152,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     updateCartItemReducer(newCartItems);
   };
 
-  const setIsCartOpen = (bool: any) => {
+  const setIsCartOpen = (bool: boolean) => {
     dispatch(createAction(CartActionType.SET_IS_CART_OPEN, bool));
   };
 
