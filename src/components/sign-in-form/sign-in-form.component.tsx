@@ -11,6 +11,7 @@ import {
 import Button from "../UI/button/button.component";
 
 import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
+import { ButtonType } from "../../state/button-types";
 
 interface FormFields {
   email: string;
@@ -90,8 +91,14 @@ const SignInForm: React.FC = () => {
         />
 
         <ButtonsContainer>
-          <Button type="submit">Sign In</Button>
-          <Button buttonType="google" type="button" onClick={signInWithGoogle}>
+          <Button buttonType={ButtonType.BASE} type="submit">
+            Sign In
+          </Button>
+          <Button
+            buttonType={ButtonType.GOOGLE}
+            type="button"
+            onClick={signInWithGoogle}
+          >
             Google Sign In
           </Button>
         </ButtonsContainer>

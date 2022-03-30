@@ -11,6 +11,7 @@ import {
 import Button from "../UI/button/button.component";
 
 import { SignUpContainer } from "./sign-up-form.styles";
+import { ButtonType } from "../../state/button-types";
 
 interface FormFields {
   displayName: string;
@@ -117,7 +118,9 @@ const SignUpForm: React.FC = () => {
           onChange={handleChange}
         />
 
-        <Button type="submit">Sign Up</Button>
+        <Button buttonType={ButtonType.BASE} type="submit">
+          Sign Up
+        </Button>
       </form>
     </SignUpContainer>
   );

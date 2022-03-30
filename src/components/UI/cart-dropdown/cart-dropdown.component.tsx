@@ -14,6 +14,7 @@ import {
 } from "./cart-dropdown.styles";
 
 import { CartItem as CartItemElement } from "../../../state/cartItem";
+import { ButtonType } from "../../../state/button-types";
 
 const CartDropdown: React.FC = () => {
   const { cartItems }: { cartItems: CartItemElement[] | [] } =
@@ -35,7 +36,9 @@ const CartDropdown: React.FC = () => {
           <EmptyMessage>Your cart is empty</EmptyMessage>
         )}
       </CartItems>
-      <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
+      <Button buttonType={ButtonType.BASE} onClick={goToCheckoutHandler}>
+        GO TO CHECKOUT
+      </Button>
     </CartDropdownContainer>
   );
 };

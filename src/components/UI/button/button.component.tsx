@@ -1,3 +1,5 @@
+import { ButtonType } from "../../../state/button-types";
+
 import {
   BaseButton,
   GoogleSignInButton,
@@ -5,24 +7,14 @@ import {
 } from "./button.styles";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonType?: string;
+  buttonType: ButtonType;
 }
 
-interface ButtonTypeClasses {
-  [key: string]: string;
-}
-
-const BUTTON_TYPE_CLASSES: ButtonTypeClasses = {
-  base: "base",
-  google: "google-sign-in",
-  inverted: "inverted",
-};
-
-const getButton = (buttonType: string | undefined) => {
+const getButton = (buttonType: ButtonType | undefined) => {
   switch (buttonType) {
-    case "google":
+    case ButtonType.GOOGLE:
       return GoogleSignInButton;
-    case "inverted":
+    case ButtonType.INVERTED:
       return InvertedButton;
     case undefined:
     default:
