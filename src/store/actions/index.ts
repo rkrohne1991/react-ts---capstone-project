@@ -1,3 +1,5 @@
+import { ProductObject } from "../../state/shop-data";
+import { CategoriesActionType } from "../action-types/categoriesActionTypes";
 import { UserActionType } from "../action-types/userActionTypes";
 import { CurrentUser } from "../user";
 
@@ -6,4 +8,9 @@ export interface SetCurrentUserAction {
   payload: CurrentUser;
 }
 
-export type Action = SetCurrentUserAction;
+export interface SetCategoriesMap {
+  type: CategoriesActionType.SET_CATEGORIES_MAP;
+  payload: ProductObject;
+}
+
+export type Action = SetCurrentUserAction | SetCategoriesMap;
