@@ -1,5 +1,6 @@
 import { Fragment, useContext } from "react";
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import {
   NavigationContainer,
@@ -9,15 +10,15 @@ import {
 } from "./navigation.styles";
 
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
-// import { UserContext } from "../../contexts/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import { CartContext } from "../../contexts/cart.context";
 
 import CartIcon from "../../components/UI/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/UI/cart-dropdown/cart-dropdown.component";
+import { selectCurrentUser } from "../../hooks/user-selector";
 
 const Navigation: React.FC = () => {
-  // const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
   const { isCartOpen } = useContext(CartContext);
 
   const signOut = (
@@ -35,7 +36,7 @@ const Navigation: React.FC = () => {
         </LogoContainer>
         <NavLinksContainer>
           <NavLink to="/shop">SHOP</NavLink>
-          {/* {currentUser ? signOut : signIn} */}
+          {currentUser ? signOut : signIn}
           <CartIcon />
         </NavLinksContainer>
         {isCartOpen && <CartDropdown />}
