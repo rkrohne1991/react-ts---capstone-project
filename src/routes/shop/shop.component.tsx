@@ -6,7 +6,7 @@ import { setCategoriesMap } from "../../store/action-creators";
 import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
 
 import CategoriesPreview from "../categories-preview/categories-preview.component";
-import Category from "../category/category.module";
+import Category from "../category/category.component";
 
 const Shop: React.FC = () => {
   const dispatch = useDispatch();
