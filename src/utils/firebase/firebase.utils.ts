@@ -31,7 +31,8 @@ import {
   setDoc,
   writeBatch,
 } from "firebase/firestore";
-import { ProductObject, ShopData } from "../../state/shop-data";
+import { Categories } from "../../state/categories";
+import { ShopData } from "../../state/shop-data";
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyAYAbo65mY08quMBE9MjtzSwOLYBMcCLRg",
@@ -74,25 +75,24 @@ export const addCollectionAndDocuments = async (
   console.log("done");
 };
 
+// export const getCategoriesAndDocuments = async () => {
+//   const collectionRef = collection(db, "categories");
+//   const q = query(collectionRef);
+
+//   const querySnapshot = await getDocs(q);
+//   const docMap = querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+
+//   // return docMap as Categories[];
+//   return docMap;
+//   // return docMap;
+// };
+
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-
-  const categoryMap = querySnapshot.docs.reduce(
-    (
-      acc: { [key: string]: any },
-      docSnapshot: QueryDocumentSnapshot<DocumentData>
-    ) => {
-      const { title, items } = docSnapshot.data();
-      acc[title.toLowerCase()] = items;
-      return acc;
-    },
-    {}
-  );
-
-  return categoryMap as ProductObject;
+  return querySnapshot.docs.map((doc) => doc.data());
 };
 
 export const createUserDocumentFromAuth = async (
