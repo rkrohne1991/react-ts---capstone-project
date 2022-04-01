@@ -75,24 +75,14 @@ export const addCollectionAndDocuments = async (
   console.log("done");
 };
 
-// export const getCategoriesAndDocuments = async () => {
-//   const collectionRef = collection(db, "categories");
-//   const q = query(collectionRef);
-
-//   const querySnapshot = await getDocs(q);
-//   const docMap = querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
-
-//   // return docMap as Categories[];
-//   return docMap;
-//   // return docMap;
-// };
-
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => doc.data());
+  const mapDocs = querySnapshot.docs.map((doc) => doc.data());
+
+  return mapDocs as Categories[];
 };
 
 export const createUserDocumentFromAuth = async (

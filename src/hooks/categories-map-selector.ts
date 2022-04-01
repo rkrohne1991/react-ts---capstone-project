@@ -1,9 +1,11 @@
 import { Categories } from "../state/categories";
 import { RootState } from "../store/reducers";
+import { Product } from "../state/product";
 
-export const selectCategoriesMap = (state: any) => {
+export const selectCategoriesMap = (state: RootState) => {
   const categoriesMap = state.categories.categories.reduce(
-    (acc: any, { title, items }: { title: any; items: any }) => {
+    (acc: { [key: string]: Product[] }, category: Categories) => {
+      const { title, items }: { title: string; items: Product[] } = category;
       acc[title.toLowerCase()] = items;
       return acc;
     },

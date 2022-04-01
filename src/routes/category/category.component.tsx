@@ -10,10 +10,13 @@ import { Product } from "../../state/product";
 import { CategoryContainer, Title } from "./category.styles";
 
 const Category: React.FC = () => {
-  const { category } = useParams();
+  const { category } = useParams<{ category: string }>();
+  // TODO:
   const categoriesMap = useSelector(selectCategoriesMap);
   console.log("rendering category");
-  const [products, setProducts] = useState(category && categoriesMap[category]);
+  const [products, setProducts] = useState<Product[]>(
+    category && categoriesMap[category]
+  );
 
   useEffect(() => {
     category && setProducts(categoriesMap[category]);

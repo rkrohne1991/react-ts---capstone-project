@@ -18,6 +18,7 @@ import CartDropdown from "../../components/UI/cart-dropdown/cart-dropdown.compon
 import { selectCurrentUser } from "../../hooks/user-selector";
 
 const Navigation: React.FC = () => {
+  // TODO:
   const currentUser = useSelector(selectCurrentUser);
   const { isCartOpen } = useContext(CartContext);
 
