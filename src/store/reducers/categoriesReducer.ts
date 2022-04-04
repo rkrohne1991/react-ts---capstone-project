@@ -1,23 +1,23 @@
-import { ProductObject } from "../../state/shop-data";
+import { Categories } from "../../state/categories";
 import { CategoriesActionType } from "../action-types/categoriesActionTypes";
+import { Action } from "../actions";
 
 interface CategoriesState {
-  categoriesMap: ProductObject;
+  categories: Categories[];
 }
 
 const initalState: CategoriesState = {
-  categoriesMap: {},
+  categories: [],
 };
 
-const reducer = (state: CategoriesState = initalState, action: any) => {
+const reducer = (state: CategoriesState = initalState, action: Action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case CategoriesActionType.SET_CATEGORIES_MAP:
-      return { ...state, categoriesMap: payload };
+    case CategoriesActionType.SET_CATEGORIES:
+      return { ...state, categories: payload };
     default:
       return state;
   }
 };
-
 export default reducer;

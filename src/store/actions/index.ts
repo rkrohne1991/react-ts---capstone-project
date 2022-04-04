@@ -9,8 +9,9 @@ export interface SetCurrentUserAction {
 }
 
 export interface SetCategoriesMap {
-  type: CategoriesActionType.SET_CATEGORIES_MAP;
-  payload: ProductObject;
+  type: CategoriesActionType.SET_CATEGORIES;
+  payload: any;
+  // payload: ProductObject;
 }
 
 export type Action = SetCurrentUserAction | SetCategoriesMap;

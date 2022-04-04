@@ -1,6 +1,7 @@
+import { Categories } from "../../state/categories";
 import { CategoriesActionType } from "../action-types/categoriesActionTypes";
 
-export const setCategoriesMap = (categoryMap: any) => ({
-  type: CategoriesActionType.SET_CATEGORIES_MAP,
-  payload: categoryMap,
+export const setCategories = (categories: Categories[]) => ({
+  type: CategoriesActionType.SET_CATEGORIES,
+  payload: categories,
 });
