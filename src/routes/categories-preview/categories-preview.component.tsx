@@ -5,7 +5,6 @@ import { selectCategoriesMap } from "../../hooks/categories-map-selector";
 import CategoryPreview from "../../components/category-preview/category-preview.component";
 
 const CategoriesPreview: React.FC = () => {
-  // TODO:
   const categoriesMap = useSelector(selectCategoriesMap);
 
   return (

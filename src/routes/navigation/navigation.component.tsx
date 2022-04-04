@@ -16,10 +16,10 @@ import { CartContext } from "../../contexts/cart.context";
 import CartIcon from "../../components/UI/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/UI/cart-dropdown/cart-dropdown.component";
 import { selectCurrentUser } from "../../hooks/user-selector";
+import { RootState } from "../../store";
 
 const Navigation: React.FC = () => {
-  // TODO:
-  const currentUser = useSelector(selectCurrentUser);
+  const currentUser = useSelector<RootState>(selectCurrentUser);
   const { isCartOpen } = useContext(CartContext);
 
   const signOut = (
