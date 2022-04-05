@@ -1,7 +1,9 @@
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Product } from "../../state/product";
 import { ButtonType } from "../../state/button-types";
+import { addItemToCart } from "../../store/action-creators";
+import { selectCartItems } from "../../hooks/cart-selector";
 import Button from "../UI/button/button.component";
 
 import {
@@ -17,10 +19,9 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { name, price, imageUrl } = product;
-  const { addItemToCart } = useContext(CartContext);
-
-  const addProductToCart = (_: React.MouseEvent<HTMLButtonElement>) =>
-    addItemToCart(product);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+  const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
 
   return (
     <ProductCartContainer>

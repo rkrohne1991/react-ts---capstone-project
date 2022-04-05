@@ -1,7 +1,7 @@
-import { useContext } from "react";
-import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+import { useSelector } from "react-redux";
 
-import { CartContext } from "../../contexts/cart.context";
+import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+import { selectCartItems, selectCartTotal } from "../../hooks/cart-selector";
 
 import {
   CheckoutContainer,
@@ -11,7 +11,8 @@ import {
 } from "./checkout.styles";
 
 const Checkout: React.FC = () => {
-  const { cartItems, cartTotal } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
 
   return (
     <CheckoutContainer>
@@ -32,7 +33,7 @@ const Checkout: React.FC = () => {
           <span>Remove</span>
         </HeaderBlock>
       </CheckoutHeader>
-      {cartItems.map((cartItem) => (
+      {cartItems.map((cartItem: any) => (
         <CheckoutItem key={cartItem.id} checkoutItem={cartItem} />
       ))}
       <Total>Total: ${cartTotal}</Total>

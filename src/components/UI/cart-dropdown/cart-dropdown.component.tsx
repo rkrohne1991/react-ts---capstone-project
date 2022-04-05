@@ -1,9 +1,5 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  AppContextInterface,
-  CartContext,
-} from "../../../contexts/cart.context";
+import { useSelector } from "react-redux";
 import Button from "../button/button.component";
 import CartItem from "../../cart-item/cart-item.component";
 
@@ -13,12 +9,11 @@ import {
   CartItems,
 } from "./cart-dropdown.styles";
 
-import { CartItem as CartItemElement } from "../../../state/cartItem";
 import { ButtonType } from "../../../state/button-types";
+import { selectCartItems } from "../../../hooks/cart-selector";
 
 const CartDropdown: React.FC = () => {
-  const { cartItems }: { cartItems: CartItemElement[] | [] } =
-    useContext<AppContextInterface>(CartContext);
+  const cartItems = useSelector(selectCartItems);
 
   const navigate = useNavigate();
 
@@ -31,7 +26,9 @@ const CartDropdown: React.FC = () => {
     <CartDropdownContainer>
       <CartItems>
         {cartItems.length ? (
-          cartItems.map((item) => <CartItem key={item.id} cartItem={item} />)
+          cartItems.map((item: any) => (
+            <CartItem key={item.id} cartItem={item} />
+          ))
         ) : (
           <EmptyMessage>Your cart is empty</EmptyMessage>
         )}
