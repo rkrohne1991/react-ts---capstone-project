@@ -14,7 +14,6 @@ import { selectCartItems } from "../../../hooks/cart-selector";
 
 const CartDropdown: React.FC = () => {
   const cartItems = useSelector(selectCartItems);
-
   const navigate = useNavigate();
 
   const goToCheckoutHandler = (event: React.MouseEvent<HTMLButtonElement>) => {

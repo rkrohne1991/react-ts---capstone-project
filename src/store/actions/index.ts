@@ -1,8 +1,10 @@
-// import { ProductObject } from "../../state/shop-data";
 import { CategoriesActionType } from "../action-types/categoriesActionTypes";
 import { UserActionType } from "../action-types/userActionTypes";
 import { CartActionType } from "../action-types/cartActionTypes";
 import { CurrentUser } from "../user";
+import { CartItem } from "../../state/cartItem";
+import { Categories } from "../../state/categories";
+import { Product } from "../../state/product";
 
 export interface SetCurrentUserAction {
   type: UserActionType.SET_CURRENT_USER;
@@ -11,18 +13,17 @@ export interface SetCurrentUserAction {
 
 export interface SetCategoriesMap {
   type: CategoriesActionType.SET_CATEGORIES;
-  payload: any;
-  // payload: ProductObject;
+  payload: Product[];
 }
 
 export interface SetCartItemsAction {
   type: CartActionType.SET_CART_ITEMS;
-  payload: any;
+  payload: CartItem[];
 }
 
 export interface SetIsCartOpenAction {
   type: CartActionType.SET_IS_CART_OPEN;
-  payload: any;
+  payload: boolean;
 }
 
 export type Action =

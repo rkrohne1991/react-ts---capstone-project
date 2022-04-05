@@ -27,13 +27,13 @@ const CheckoutItem: React.FC<CheckoutItemProps> = ({ checkoutItem }) => {
   const { name, imageUrl, price, quantity } = checkoutItem;
   const cartItems = useSelector(selectCartItems);
 
-  const clearItemHandler = () => {
+  const clearItemHandler = (_: React.MouseEvent<HTMLDivElement>) => {
     dispatch(clearItemFromCart(cartItems, checkoutItem));
   };
-  const addItemHandler = () => {
+  const addItemHandler = (_: React.MouseEvent<HTMLDivElement>) => {
     dispatch(addItemToCart(cartItems, checkoutItem));
   };
-  const removeItemHandler = () =>
+  const removeItemHandler = (_: React.MouseEvent<HTMLDivElement>) =>
     dispatch(removeItemFromCart(cartItems, checkoutItem));
 
   return (
