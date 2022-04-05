@@ -1,4 +1,5 @@
 export enum CategoriesActionType {
-  SET_CATEGORIES_MAP = "categories/set_categories_map",
-  SET_CATEGORIES = "categories/set_categories",
+  FETCH_CATEGORIES_START = "category/fetch_categories_start",
+  FETCH_CATEGORIES_SUCCESS = "category/fetch_categories_success",
+  FETCH_CATEGORIES_FAILED = "category/fetch_categories_failed",
 }

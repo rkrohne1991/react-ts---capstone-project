@@ -3,7 +3,6 @@ import { UserActionType } from "../action-types/userActionTypes";
 import { CartActionType } from "../action-types/cartActionTypes";
 import { CurrentUser } from "../user";
 import { CartItem } from "../../state/cartItem";
-import { Categories } from "../../state/categories";
 import { Product } from "../../state/product";
 
 export interface SetCurrentUserAction {
@@ -11,8 +10,18 @@ export interface SetCurrentUserAction {
   payload: CurrentUser;
 }
 
-export interface SetCategoriesMap {
-  type: CategoriesActionType.SET_CATEGORIES;
+export interface FetchCategoriesSuccess {
+  type: CategoriesActionType.FETCH_CATEGORIES_SUCCESS;
+  payload: Product[];
+}
+
+export interface FetchCategoriesStart {
+  type: CategoriesActionType.FETCH_CATEGORIES_START;
+  payload: Product[];
+}
+
+export interface FetchCategoriesFailed {
+  type: CategoriesActionType.FETCH_CATEGORIES_FAILED;
   payload: Product[];
 }
 
@@ -28,6 +37,8 @@ export interface SetIsCartOpenAction {
 
 export type Action =
   | SetCurrentUserAction
-  | SetCategoriesMap
+  | FetchCategoriesSuccess
+  | FetchCategoriesStart
+  | FetchCategoriesFailed
   | SetCartItemsAction
   | SetIsCartOpenAction;

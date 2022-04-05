@@ -21,13 +21,11 @@ import {
 import {
   collection,
   doc,
-  DocumentData,
   Firestore,
   getDoc,
   getDocs,
   getFirestore,
   query,
-  QueryDocumentSnapshot,
   setDoc,
   writeBatch,
 } from "firebase/firestore";
