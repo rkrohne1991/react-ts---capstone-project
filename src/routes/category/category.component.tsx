@@ -12,7 +12,6 @@ import { CategoryContainer, Title } from "./category.styles";
 const Category: React.FC = () => {
   const { category } = useParams<{ category: string }>();
   const categoriesMap = useSelector(selectCategoriesMap);
-  console.log("rendering category");
   const [products, setProducts] = useState<Product[]>(
     category && categoriesMap[category]
   );
