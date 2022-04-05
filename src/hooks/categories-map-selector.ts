@@ -8,7 +8,7 @@ const selectCategoryReducer = (state: RootState) => state.categories;
 
 export const selectCategories = createSelector(
   [selectCategoryReducer],
-  (categoriesSlice) => categoriesSlice.categories
+  (categoriesSlice: any) => categoriesSlice.categories
 );
 
 export const selectCategoriesMap = createSelector(

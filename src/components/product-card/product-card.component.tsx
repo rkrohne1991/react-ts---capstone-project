@@ -12,6 +12,7 @@ import {
   Name,
   Price,
 } from "./product-card.styles";
+import { Dispatch } from "redux";
 
 interface ProductCardProps {
   product: Product;
@@ -19,9 +20,11 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { name, price, imageUrl } = product;
-  const dispatch = useDispatch();
+
+  const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector(selectCartItems);
-  const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
+  const addProductToCart = (_: React.MouseEvent<HTMLButtonElement>) =>
+    dispatch(addItemToCart(cartItems, product));
 
   return (
     <ProductCartContainer>
