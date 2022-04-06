@@ -1,17 +1,29 @@
 import { Categories } from "../../state/categories";
 import { CategoriesActionType } from "../action-types/categoriesActionTypes";
+import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
+import { Dispatch } from "redux";
 
-export const fetchCategoriesSuccess = (categories: Categories[]) => ({
-  type: CategoriesActionType.FETCH_CATEGORIES_SUCCESS,
-  payload: categories,
-});
-
-export const fetchCategoriesStart = (boolean: boolean) => ({
+export const fetchCategoriesStart = () => ({
   type: CategoriesActionType.FETCH_CATEGORIES_START,
-  payload: boolean,
 });
 
-export const fetchCategoriesFailed = (error: Error) => ({
+export const fetchCategoriesSuccess = (categoriesArray: Categories[]) => ({
+  type: CategoriesActionType.FETCH_CATEGORIES_START,
+  payload: categoriesArray,
+});
+
+export const fetchCategoriesFailed = (error: unknown) => ({
   type: CategoriesActionType.FETCH_CATEGORIES_FAILED,
   payload: error,
 });
+
+export const fetchCategoriesAsync = () => async (dispatch: Dispatch) => {
+  dispatch(fetchCategoriesStart());
+
+  try {
+    const categoriesArray = await getCategoriesAndDocuments();
+    dispatch(fetchCategoriesSuccess(categoriesArray));
+  } catch (error: unknown) {
+    dispatch(fetchCategoriesFailed(error));
+  }
+};
