@@ -3,8 +3,12 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import ProductCard from "../../components/product-card/product-card.component";
+import Spinner from "../../components/UI/spinner/spinner.component";
 
-import { selectCategoriesMap } from "../../hooks/categories-map-selector";
+import {
+  selectCategoriesIsLoading,
+  selectCategoriesMap,
+} from "../../hooks/categories-map-selector";
 import { Product } from "../../state/product";
 
 import { CategoryContainer, Title } from "./category.styles";
@@ -12,9 +16,8 @@ import { CategoryContainer, Title } from "./category.styles";
 const Category: React.FC = () => {
   const { category } = useParams<{ category: string }>();
   const categoriesMap = useSelector(selectCategoriesMap);
-  const [products, setProducts] = useState<Product[]>(
-    category && categoriesMap[category]
-  );
+  const isLoading = useSelector(selectCategoriesIsLoading);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     category && setProducts(categoriesMap[category]);
@@ -23,12 +26,16 @@ const Category: React.FC = () => {
   const productsLayout = (
     <Fragment>
       <Title>{category?.toLocaleUpperCase()}</Title>
-      <CategoryContainer>
-        {products &&
-          products.map((product: Product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-      </CategoryContainer>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <CategoryContainer>
+          {products &&
+            products.map((product: Product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+        </CategoryContainer>
+      )}
     </Fragment>
   );
 

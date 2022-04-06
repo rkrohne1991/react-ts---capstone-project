@@ -1,14 +1,15 @@
+import { Dispatch } from "redux";
+
 import { Categories } from "../../state/categories";
 import { CategoriesActionType } from "../action-types/categoriesActionTypes";
 import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
-import { Dispatch } from "redux";
 
 export const fetchCategoriesStart = () => ({
   type: CategoriesActionType.FETCH_CATEGORIES_START,
 });
 
 export const fetchCategoriesSuccess = (categoriesArray: Categories[]) => ({
-  type: CategoriesActionType.FETCH_CATEGORIES_START,
+  type: CategoriesActionType.FETCH_CATEGORIES_SUCCESS,
   payload: categoriesArray,
 });
 

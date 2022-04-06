@@ -3,12 +3,14 @@ import { createSelector } from "reselect";
 import { Categories } from "../state/categories";
 import { RootState } from "../store/reducers";
 import { Product } from "../state/product";
+import { CategoriesState } from "../store/reducers/categoriesReducer";
 
 const selectCategoryReducer = (state: RootState) => state.categories;
 
 export const selectCategories = createSelector(
   [selectCategoryReducer],
-  (categoriesSlice: any) => categoriesSlice.categories
+  (categoriesSlice: CategoriesState) =>
+    categoriesSlice.categories as Categories[]
 );
 
 export const selectCategoriesMap = createSelector(
@@ -22,4 +24,11 @@ export const selectCategoriesMap = createSelector(
       },
       {}
     )
+);
+
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoryReducer],
+  (categoriesSlice: CategoriesState) => {
+    return categoriesSlice.isLoading as boolean;
+  }
 );

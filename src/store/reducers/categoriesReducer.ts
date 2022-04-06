@@ -2,7 +2,7 @@ import { Categories } from "../../state/categories";
 import { CategoriesActionType } from "../action-types/categoriesActionTypes";
 import { Action } from "../actions";
 
-interface CategoriesState {
+export interface CategoriesState {
   categories: Categories[];
   isLoading: boolean;
   error: null;
