@@ -6,7 +6,7 @@ import createSagaMiddleware from "redux-saga";
 
 import reducers from "./reducers";
 
-import { rootSaga } from "./saga/root-saga";
+import { rootSaga } from "./saga/rootSaga";
 
 const persistConfig = {
   key: "root",
