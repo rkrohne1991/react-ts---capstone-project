@@ -3,15 +3,12 @@ import { FirebaseError } from "firebase/app";
 
 import FormInput from "../form-input/form-input.component";
 
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
-
 import Button from "../UI/button/button.component";
 
 import { SignUpContainer } from "./sign-up-form.styles";
 import { ButtonType } from "../../state/button-types";
+import { useDispatch } from "react-redux";
+import { signUpStart } from "../../store/action-creators";
 
 interface FormFields {
   displayName: string;
@@ -28,6 +25,7 @@ const defaultFormFields: FormFields = {
 };
 
 const SignUpForm: React.FC = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -58,15 +56,7 @@ const SignUpForm: React.FC = () => {
     }
 
     try {
-      const response = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      if (response) {
-        await createUserDocumentFromAuth(response.user, { displayName });
-      }
-
+      dispatch(signUpStart(email, password, displayName));
       resetFormFields();
     } catch (error: unknown) {
       const err = error as FirebaseError;

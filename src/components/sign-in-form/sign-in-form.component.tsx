@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { FirebaseError } from "firebase/app";
+import { useDispatch } from "react-redux";
 
 import FormInput from "../form-input/form-input.component";
-
-import {
-  signInAuthUserWithEmailAndPassword,
-  signInWithGooglePopup,
-} from "../../utils/firebase/firebase.utils";
 
 import Button from "../UI/button/button.component";
 
 import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
 import { ButtonType } from "../../state/button-types";
+import {
+  emailSignInStart,
+  googleSignInStart,
+} from "../../store/action-creators";
 
 interface FormFields {
   email: string;
@@ -24,6 +24,7 @@ const defaultFormFields: FormFields = {
 };
 
 const SignInForm: React.FC = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -32,7 +33,7 @@ const SignInForm: React.FC = () => {
   };
 
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+    dispatch(googleSignInStart());
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,23 +48,11 @@ const SignInForm: React.FC = () => {
     if (email.length === 0 || password.length === 0) return;
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      console.log(response);
+      dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error: unknown) {
       const err = error as FirebaseError;
-
-      switch (err.code) {
-        case "auth/wrong-password":
-        case "auth/user-not-found":
-          alert("Incorrect email or password!");
-          break;
-        default:
-          console.log(error);
-      }
+      console.log("user sign in failed", err);
     }
   };
 
