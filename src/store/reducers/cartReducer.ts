@@ -13,18 +13,16 @@ const initialState: CartState = {
 };
 
 const reducer = (state: CartState = initialState, action: Action) => {
-  const { type, payload } = action;
-
-  switch (type) {
+  switch (action.type) {
     case CartActionType.SET_CART_ITEMS:
       return {
         ...state,
-        cartItems: payload,
+        cartItems: action.payload,
       };
     case CartActionType.SET_IS_CART_OPEN:
       return {
         ...state,
-        isCartOpen: payload,
+        isCartOpen: action.payload,
       };
     default:
       return state;

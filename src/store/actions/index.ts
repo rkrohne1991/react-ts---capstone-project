@@ -10,6 +10,29 @@ export interface SetCurrentUserAction {
   payload: CurrentUser;
 }
 
+export interface CheckUserSession {
+  type: UserActionType.CHECK_USER_SESSION;
+}
+
+export interface GoogleSignInStart {
+  type: UserActionType.GOOGLE_SIGN_IN_START;
+}
+
+export interface EmailSignInStart {
+  type: UserActionType.EMAIL_SIGN_IN_START;
+  payload: any;
+}
+
+export interface SignInSuccess {
+  type: UserActionType.SIGN_IN_SUCCESS;
+  payload: any;
+}
+
+export interface SignInFailed {
+  type: UserActionType.SIGN_IN_FAILED;
+  payload: any;
+}
+
 export interface FetchCategoriesSuccess {
   type: CategoriesActionType.FETCH_CATEGORIES_SUCCESS;
   payload: Product[];
@@ -37,6 +60,11 @@ export interface SetIsCartOpenAction {
 
 export type Action =
   | SetCurrentUserAction
+  | CheckUserSession
+  | GoogleSignInStart
+  | EmailSignInStart
+  | SignInSuccess
+  | SignInFailed
   | FetchCategoriesSuccess
   | FetchCategoriesStart
   | FetchCategoriesFailed

@@ -15,15 +15,13 @@ const initalState: CategoriesState = {
 };
 
 const reducer = (state: CategoriesState = initalState, action: Action) => {
-  const { type, payload } = action;
-
-  switch (type) {
+  switch (action.type) {
     case CategoriesActionType.FETCH_CATEGORIES_START:
       return { ...state, isLoading: true };
     case CategoriesActionType.FETCH_CATEGORIES_SUCCESS:
-      return { ...state, categories: payload, isLoading: false };
+      return { ...state, categories: action.payload, isLoading: false };
     case CategoriesActionType.FETCH_CATEGORIES_FAILED:
-      return { ...state, error: payload, isLoading: false };
+      return { ...state, error: action.payload, isLoading: false };
     default:
       return state;
   }
