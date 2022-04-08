@@ -1,4 +1,4 @@
-import { User } from "firebase/auth";
+import { User, UserCredential } from "firebase/auth";
 import { UserActionType } from "../action-types/userActionTypes";
 import { CurrentUser } from "../user";
 
@@ -40,7 +40,7 @@ export const signUpStart = (
 });
 
 export const signUpSuccess = (
-  user: User | null,
+  user: UserCredential | undefined,
   additionalDetails: Object = {}
 ) => ({
   type: UserActionType.SIGN_UP_SUCCESS,

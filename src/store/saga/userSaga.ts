@@ -56,7 +56,7 @@ export function* signInWithGoogle(): Generator<
   any
 > {
   try {
-    const { user }: { user: UserCredential } = yield call(
+    const { user }: { user: UserCredential | undefined } = yield call(
       signInWithGooglePopup
     );
     yield call(getSnapshotFromUserAuth, user);
@@ -68,9 +68,11 @@ export function* signInWithGoogle(): Generator<
 export function* signInWithEmail(
   payload: any
 ): Generator<CallEffect | PutEffect, void, any> {
-  const { email, password }: { email: string; password: string } = payload;
+  const { email, password }: { email: string; password: string } =
+    payload.payload;
+
   try {
-    const { user }: { user: UserCredential } = yield call(
+    const { user }: { user: UserCredential | undefined } = yield call(
       signInAuthUserWithEmailAndPassword,
       email,
       password
@@ -102,9 +104,9 @@ export function* signUp(
     email,
     password,
     displayName,
-  }: { email: any; password: any; displayName: any } = payload;
+  }: { email: string; password: string; displayName: string } = payload.payload;
   try {
-    const { user }: { user: User | null } = yield call(
+    const { user }: { user: UserCredential | undefined } = yield call(
       createAuthUserWithEmailAndPassword,
       email,
       password
@@ -128,7 +130,7 @@ export function* signInAfterSignUp(payload: any) {
   const {
     user,
     additionalDetails,
-  }: { user: User | null; additionalDetails: Object | {} } = payload;
+  }: { user: User | null; additionalDetails: Object | {} } = payload.payload;
   yield call(getSnapshotFromUserAuth, user, additionalDetails);
 }
 
