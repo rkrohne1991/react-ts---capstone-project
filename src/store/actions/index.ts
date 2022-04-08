@@ -4,6 +4,7 @@ import { CartActionType } from "../action-types/cartActionTypes";
 import { CurrentUser } from "../user";
 import { CartItem } from "../../state/cartItem";
 import { Product } from "../../state/product";
+import { User } from "firebase/auth";
 
 export interface SetCurrentUserAction {
   type: UserActionType.SET_CURRENT_USER;
@@ -20,35 +21,32 @@ export interface GoogleSignInStart {
 
 export interface EmailSignInStart {
   type: UserActionType.EMAIL_SIGN_IN_START;
-  payload: any;
+  payload: { email: string; password: string };
 }
 
 export interface SignInSuccess {
   type: UserActionType.SIGN_IN_SUCCESS;
-  payload: any;
+  payload: User | null;
 }
 
 export interface SignInFailed {
   type: UserActionType.SIGN_IN_FAILED;
-  payload: any;
+  payload: unknown;
 }
 
 export interface SignInStart {
   type: UserActionType.SIGN_UP_START;
-  payload: any;
-  // payload: { email, password, displayName },
+  payload: { email: string; password: string; displayName: Object | {} };
 }
 
 export interface SignUpSuccess {
   type: UserActionType.SIGN_UP_SUCCESS;
-  payload: any;
-  // payload: { user, additionalDetails },
+  payload: { user: User | null; additionalDetails: Object | {} };
 }
 
 export interface SignUpFailed {
   type: UserActionType.SIGN_UP_FAILED;
-  payload: any;
-  // payload: error,
+  payload: unknown;
 }
 
 export interface SignOutStart {
@@ -61,8 +59,7 @@ export interface SignOutSuccess {
 
 export interface SignOutFailed {
   type: UserActionType.SIGN_OUT_FAILED;
-  payload: any;
-  // payload: error,
+  payload: unknown;
 }
 
 export interface FetchCategoriesSuccess {

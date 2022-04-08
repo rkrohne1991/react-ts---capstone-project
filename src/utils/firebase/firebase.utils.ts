@@ -50,8 +50,10 @@ googleProvider.setCustomParameters({
 });
 
 export const auth: Auth = getAuth(firebase);
+
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
+
 export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
