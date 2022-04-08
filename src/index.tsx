@@ -8,13 +8,17 @@ import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { persistor, store } from "./store";
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "./utils/stripe/stripe.utils";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
-          <App />
+          <Elements stripe={stripePromise}>
+            <App />
+          </Elements>
         </BrowserRouter>
       </PersistGate>
     </Provider>
