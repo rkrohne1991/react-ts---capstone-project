@@ -19,6 +19,8 @@ const PaymentForm: React.FC = () => {
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
+  console.log(window.location.origin);
+
   const paymentHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -27,7 +29,7 @@ const PaymentForm: React.FC = () => {
     setIsProcessingPayment(true);
 
     const response = await fetch(
-      `http://localhost:65155/.netlify/functions/create-payment-intent`,
+      `${window.location.origin}/.netlify/functions/create-payment-intent`,
       {
         method: "POST",
         mode: "cors",
