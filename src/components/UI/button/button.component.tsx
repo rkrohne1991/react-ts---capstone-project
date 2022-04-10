@@ -4,10 +4,12 @@ import {
   BaseButton,
   GoogleSignInButton,
   InvertedButton,
+  ButtonSpinner,
 } from "./button.styles";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonType: ButtonType;
+  isLoading?: boolean;
 }
 
 const getButton = (buttonType: ButtonType | undefined) => {
@@ -22,8 +24,17 @@ const getButton = (buttonType: ButtonType | undefined) => {
   }
 };
 
-const Button: React.FC<ButtonProps> = ({ buttonType, children, ...props }) => {
+const Button: React.FC<ButtonProps> = ({
+  buttonType,
+  children,
+  isLoading,
+  ...props
+}) => {
   const CustomButton = getButton(buttonType);
-  return <CustomButton {...props}>{children}</CustomButton>;
+  return (
+    <CustomButton disabled={isLoading} {...props}>
+      {isLoading ? <ButtonSpinner /> : children}
+    </CustomButton>
+  );
 };
 export default Button;
