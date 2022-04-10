@@ -19,8 +19,6 @@ const PaymentForm: React.FC = () => {
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
-  console.log(window.location.origin);
-
   const paymentHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
