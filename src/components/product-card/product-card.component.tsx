@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { Product } from "../../state/product";
 import { ButtonType } from "../../state/button-types";
 import { addItemToCart } from "../../store/action-creators";
 import { selectCartItems } from "../../hooks/cart-selector";
@@ -13,9 +12,10 @@ import {
   Price,
 } from "./product-card.styles";
 import { Dispatch } from "redux";
+import { CategoryItem } from "../../store/types/categoryTypes";
 
 interface ProductCardProps {
-  product: Product;
+  product: CategoryItem;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {

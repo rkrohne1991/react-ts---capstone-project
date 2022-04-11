@@ -30,14 +30,7 @@ import { UserActionType } from "../action-types/userActionTypes";
 export function* getSnapshotFromUserAuth(
   userAuth: any,
   additionalDetails: Object = {}
-): Generator<
-  | CallEffect<DocumentSnapshot<DocumentData> | undefined>
-  | PutEffect<{
-      type: any;
-    }>,
-  void,
-  { id: number; data: any }
-> {
+): Generator<any, any, any> {
   try {
     const userSnapshot = yield call(
       createUserDocumentFromAuth,

@@ -9,7 +9,7 @@ import {
   selectCategoriesIsLoading,
   selectCategoriesMap,
 } from "../../hooks/categories-map-selector";
-import { Product } from "../../state/product";
+import { CategoryItem } from "../../store/types/categoryTypes";
 
 import { CategoryContainer, Title } from "./category.styles";
 
@@ -17,7 +17,7 @@ const Category: React.FC = () => {
   const { category } = useParams<{ category: string }>();
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<CategoryItem[]>([]);
 
   useEffect(() => {
     category && setProducts(categoriesMap[category]);
@@ -31,7 +31,7 @@ const Category: React.FC = () => {
       ) : (
         <CategoryContainer>
           {products &&
-            products.map((product: Product) => (
+            products.map((product: CategoryItem) => (
               <ProductCard key={product.id} product={product} />
             ))}
         </CategoryContainer>

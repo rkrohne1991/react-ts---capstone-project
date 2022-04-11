@@ -1,4 +1,4 @@
-import { Product } from "../../state/product";
+import { CategoryItem } from "../../store/types/categoryTypes";
 import ProductCard from "../product-card/product-card.component";
 
 import {
@@ -9,7 +9,7 @@ import {
 
 interface CategoryPreviewProps {
   title: string;
-  products: Product[];
+  products: CategoryItem[];
 }
 
 const CategoryPreview: React.FC<CategoryPreviewProps> = ({
@@ -24,7 +24,7 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = ({
       <Preview>
         {products
           .filter((_, idx) => idx < 4)
-          .map((product) => (
+          .map((product: CategoryItem) => (
             <ProductCard key={product.id} product={product} />
           ))}
       </Preview>
