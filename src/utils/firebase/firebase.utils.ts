@@ -29,7 +29,7 @@ import {
   setDoc,
   writeBatch,
 } from "firebase/firestore";
-import { Categories } from "../../state/categories";
+import { CategoryMap } from "../../store/types/categoryTypes";
 import { ShopData } from "../../state/shop-data";
 
 const firebaseConfig: FirebaseOptions = {
@@ -83,7 +83,7 @@ export const getCategoriesAndDocuments = async () => {
   const querySnapshot = await getDocs(q);
   const mapDocs = querySnapshot.docs.map((doc) => doc.data());
 
-  return mapDocs as Categories[];
+  return mapDocs as CategoryMap[];
 };
 
 export const createUserDocumentFromAuth = async (

@@ -6,7 +6,6 @@ import {
   CallEffect,
   PutEffect,
 } from "redux-saga/effects";
-import { Categories } from "../../state/categories";
 
 import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
 import {
@@ -18,12 +17,12 @@ import { CategoriesActionType } from "../action-types/categoriesActionTypes";
 export function* fetchCategoriesAsync(): Generator<
   CallEffect | PutEffect,
   void,
-  Categories[]
+  any
 > {
   try {
-    const categoriesArray: Categories[] = yield call(getCategoriesAndDocuments);
+    const categoriesArray = yield call(getCategoriesAndDocuments);
     yield put(fetchCategoriesSuccess(categoriesArray));
-  } catch (error: unknown) {
+  } catch (error: any) {
     yield put(fetchCategoriesFailed(error));
   }
 }

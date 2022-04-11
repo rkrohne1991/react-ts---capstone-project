@@ -1,12 +1,12 @@
 import { DirectoryContainer } from "./directory.styles";
 
-import { Category } from "../../state/category";
 import DirectoryItem from "../directory-item/directory-item.component";
 
 import CATEGORIES_DATA from "../../categories-data.json";
+import { CategoryHome } from "../../store/types/categoryTypes";
 
 const Directory: React.FC = () => {
-  const categories: Category[] = CATEGORIES_DATA;
+  const categories: CategoryHome[] = CATEGORIES_DATA;
 
   return (
     <DirectoryContainer>

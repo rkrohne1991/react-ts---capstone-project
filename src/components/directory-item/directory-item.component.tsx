@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
-import { Category } from "../../state/category";
+import { CategoryHome } from "../../store/types/categoryTypes";
 
 import {
   BackgroundImage,
@@ -8,7 +7,12 @@ import {
   DirectoryItemContainer,
 } from "./directory-item.styles";
 
-const DirectoryItem: React.FC<Category> = ({ id, title, imageUrl, route }) => {
+const DirectoryItem: React.FC<CategoryHome> = ({
+  id,
+  title,
+  imageUrl,
+  route,
+}) => {
   const navigate = useNavigate();
   const onNavigateHandler = (_: React.MouseEvent<HTMLDivElement>) =>
     navigate(route);
