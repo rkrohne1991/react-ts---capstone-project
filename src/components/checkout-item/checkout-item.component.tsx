@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectCartItems } from "../../hooks/cart-selector";
-import { CartItem } from "../../state/cartItem";
+import { CartItem } from "../../store/types/cartTypes";
 import {
   addItemToCart,
   clearItemFromCart,

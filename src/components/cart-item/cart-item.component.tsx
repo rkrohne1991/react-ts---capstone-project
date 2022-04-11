@@ -1,9 +1,8 @@
-import { CartItem as CartItemState } from "../../state/cartItem";
-
+import { CartItem as CartItemType } from "../../store/types/cartTypes";
 import { CartItemContainer, ItemDetails } from "./cart-item.styles";
 
 interface CartItemProps {
-  cartItem: CartItemState;
+  cartItem: CartItemType;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ cartItem }) => {
