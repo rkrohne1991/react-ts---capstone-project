@@ -1,8 +1,8 @@
 import { FormInputLabel, Input, Group } from "./form-input.styles";
 
-interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-}
+type FormInputProps = {
+  label: string;
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
 const FormInput: React.FC<FormInputProps> = ({ ...props }) => {
   const propsValueLength = String(props.value).length;
@@ -11,7 +11,12 @@ const FormInput: React.FC<FormInputProps> = ({ ...props }) => {
     <Group>
       <Input {...props} />
       {props.label && (
-        <FormInputLabel shrink={propsValueLength} htmlFor={props.name}>
+        <FormInputLabel
+          shrink={Boolean(
+            props.value && typeof props.value === "string" && props.value.length
+          )}
+          htmlFor={props.name}
+        >
           {props.label}
         </FormInputLabel>
       )}

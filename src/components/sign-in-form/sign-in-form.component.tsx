@@ -12,10 +12,10 @@ import {
   googleSignInStart,
 } from "../../store/action-creators";
 
-interface FormFields {
+type FormFields = {
   email: string;
   password: string;
-}
+};
 
 const defaultFormFields: FormFields = {
   email: "",
