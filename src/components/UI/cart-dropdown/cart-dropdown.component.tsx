@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Button from "../button/button.component";
+import Button, { ButtonTypeClasses } from "../button/button.component";
 import CartItem from "../../cart-item/cart-item.component";
 
 import {
@@ -9,7 +9,6 @@ import {
   CartItems,
 } from "./cart-dropdown.styles";
 
-import { ButtonType } from "../../../state/button-types";
 import { selectCartItems } from "../../../hooks/cart-selector";
 
 const CartDropdown: React.FC = () => {
@@ -32,7 +31,7 @@ const CartDropdown: React.FC = () => {
           <EmptyMessage>Your cart is empty</EmptyMessage>
         )}
       </CartItems>
-      <Button buttonType={ButtonType.BASE} onClick={goToCheckoutHandler}>
+      <Button buttonType={ButtonTypeClasses.base} onClick={goToCheckoutHandler}>
         GO TO CHECKOUT
       </Button>
     </CartDropdownContainer>

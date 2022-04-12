@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { ButtonType } from "../../state/button-types";
 import { addItemToCart } from "../../store/action-creators";
 import { selectCartItems } from "../../hooks/cart-selector";
-import Button from "../UI/button/button.component";
+import Button, { ButtonTypeClasses } from "../UI/button/button.component";
 
 import {
   ProductCartContainer,
@@ -33,7 +32,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <Name>{name}</Name>
         <Price>{price}</Price>
       </Footer>
-      <Button buttonType={ButtonType.INVERTED} onClick={addProductToCart}>
+      <Button
+        buttonType={ButtonTypeClasses.inverted}
+        onClick={addProductToCart}
+      >
         Add to cart
       </Button>
     </ProductCartContainer>

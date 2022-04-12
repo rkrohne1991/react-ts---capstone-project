@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
-import { ButtonType } from "../../state/button-types";
-
 import {
   FormContainer,
   PaymentButton,
@@ -11,6 +9,7 @@ import {
 import { selectCartTotal } from "../../hooks/cart-selector";
 import { selectCurrentUser } from "../../hooks/user-selector";
 import { useState } from "react";
+import { ButtonTypeClasses } from "../UI/button/button.component";
 
 const PaymentForm: React.FC = () => {
   const stripe = useStripe();
@@ -67,7 +66,7 @@ const PaymentForm: React.FC = () => {
         <CardElement />
         <PaymentButton
           isLoading={isProcessingPayment}
-          buttonType={ButtonType.INVERTED}
+          buttonType={ButtonTypeClasses.inverted}
         >
           Pay Now
         </PaymentButton>

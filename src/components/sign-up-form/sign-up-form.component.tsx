@@ -3,10 +3,9 @@ import { FirebaseError } from "firebase/app";
 
 import FormInput from "../form-input/form-input.component";
 
-import Button from "../UI/button/button.component";
+import Button, { ButtonTypeClasses } from "../UI/button/button.component";
 
 import { SignUpContainer } from "./sign-up-form.styles";
-import { ButtonType } from "../../state/button-types";
 import { useDispatch } from "react-redux";
 import { signUpStart } from "../../store/action-creators";
 
@@ -108,7 +107,7 @@ const SignUpForm: React.FC = () => {
           onChange={handleChange}
         />
 
-        <Button buttonType={ButtonType.BASE} type="submit">
+        <Button buttonType={ButtonTypeClasses.base} type="submit">
           Sign Up
         </Button>
       </form>

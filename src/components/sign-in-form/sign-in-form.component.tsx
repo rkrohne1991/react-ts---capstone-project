@@ -4,10 +4,9 @@ import { useDispatch } from "react-redux";
 
 import FormInput from "../form-input/form-input.component";
 
-import Button from "../UI/button/button.component";
+import Button, { ButtonTypeClasses } from "../UI/button/button.component";
 
 import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
-import { ButtonType } from "../../state/button-types";
 import {
   emailSignInStart,
   googleSignInStart,
@@ -80,11 +79,11 @@ const SignInForm: React.FC = () => {
         />
 
         <ButtonsContainer>
-          <Button buttonType={ButtonType.BASE} type="submit">
+          <Button buttonType={ButtonTypeClasses.base} type="submit">
             Sign In
           </Button>
           <Button
-            buttonType={ButtonType.GOOGLE}
+            buttonType={ButtonTypeClasses.google}
             type="button"
             onClick={signInWithGoogle}
           >

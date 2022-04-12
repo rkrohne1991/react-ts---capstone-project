@@ -1,5 +1,3 @@
-import { ButtonType } from "../../../state/button-types";
-
 import {
   BaseButton,
   GoogleSignInButton,
@@ -7,22 +5,23 @@ import {
   ButtonSpinner,
 } from "./button.styles";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonType: ButtonType;
-  isLoading?: boolean;
+export enum ButtonTypeClasses {
+  base = "base",
+  google = "google-sign-in",
+  inverted = "inverted",
 }
 
-const getButton = (buttonType: ButtonType | undefined) => {
-  switch (buttonType) {
-    case ButtonType.GOOGLE:
-      return GoogleSignInButton;
-    case ButtonType.INVERTED:
-      return InvertedButton;
-    case undefined:
-    default:
-      return BaseButton;
-  }
-};
+const getButton = (buttonType = ButtonTypeClasses.base): typeof BaseButton =>
+  ({
+    [ButtonTypeClasses.base]: BaseButton,
+    [ButtonTypeClasses.google]: GoogleSignInButton,
+    [ButtonTypeClasses.inverted]: InvertedButton,
+  }[buttonType]);
+
+export type ButtonProps = {
+  buttonType?: ButtonTypeClasses;
+  isLoading?: boolean;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button: React.FC<ButtonProps> = ({
   buttonType,
