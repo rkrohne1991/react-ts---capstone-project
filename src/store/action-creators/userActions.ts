@@ -1,66 +1,76 @@
-import { User, UserCredential } from "firebase/auth";
 import { UserActionType } from "../action-types/userActionTypes";
-import { CurrentUser } from "../user";
+import { withMatcher, createAction } from "../../utils/reducer/reducer.utils";
+import {
+  CheckUserSession,
+  EmailSignInStart,
+  GoogleSignInStart,
+  SetCurrentUser,
+  SignInFailed,
+  SignInSuccess,
+  SignOutFailed,
+  SignOutStart,
+  SignOutSuccess,
+  SignUpFailed,
+  SignUpStart,
+  SignUpSuccess,
+} from "../actions/userActions";
+import {
+  AdditionalInformation,
+  UserData,
+} from "../../utils/firebase/firebase.utils";
 
-export const setCurrentUser = (user: CurrentUser) => ({
-  type: UserActionType.SET_CURRENT_USER,
-  payload: user,
-});
+export const checkUserSession = withMatcher(
+  (): CheckUserSession => createAction(UserActionType.CHECK_USER_SESSION)
+);
 
-export const checkUserSession = () => ({
-  type: UserActionType.CHECK_USER_SESSION,
-});
+export const setCurrentUser = withMatcher(
+  (user: UserData): SetCurrentUser =>
+    createAction(UserActionType.SET_CURRENT_USER, user)
+);
 
-export const googleSignInStart = () => ({
-  type: UserActionType.GOOGLE_SIGN_IN_START,
-});
+export const googleSignInStart = withMatcher(
+  (): GoogleSignInStart => createAction(UserActionType.GOOGLE_SIGN_IN_START)
+);
 
-export const emailSignInStart = (email: string, password: string) => ({
-  type: UserActionType.EMAIL_SIGN_IN_START,
-  payload: { email, password },
-});
+export const emailSignInStart = withMatcher(
+  (email: string, password: string): EmailSignInStart =>
+    createAction(UserActionType.EMAIL_SIGN_IN_START, { email, password })
+);
 
-export const signInSuccess = (user: User | null) => ({
-  type: UserActionType.SIGN_IN_SUCCESS,
-  payload: user,
-});
+export const signInSuccess = withMatcher(
+  (user: UserData): SignInSuccess =>
+    createAction(UserActionType.SIGN_IN_SUCCESS, user)
+);
 
-export const signInFailed = (error: unknown) => ({
-  type: UserActionType.SIGN_IN_FAILED,
-  payload: error,
-});
+export const signInFailed = withMatcher(
+  (error: Error): SignInFailed =>
+    createAction(UserActionType.SIGN_IN_FAILED, error)
+);
 
-export const signUpStart = (
-  email: string,
-  password: string,
-  displayName: string
-) => ({
-  type: UserActionType.SIGN_UP_START,
-  payload: { email, password, displayName },
-});
+export const signUpStart = withMatcher(
+  (email: string, password: string, displayName: string): SignUpStart =>
+    createAction(UserActionType.SIGN_UP_START, { email, password, displayName })
+);
 
-export const signUpSuccess = (
-  user: UserCredential | undefined,
-  additionalDetails: Object = {}
-) => ({
-  type: UserActionType.SIGN_UP_SUCCESS,
-  payload: { user, additionalDetails },
-});
+export const signUpSuccess = withMatcher(
+  (user: UserData, additionalDetails: AdditionalInformation): SignUpSuccess =>
+    createAction(UserActionType.SIGN_UP_SUCCESS, { user, additionalDetails })
+);
 
-export const signUpFailed = (error: unknown) => ({
-  type: UserActionType.SIGN_UP_FAILED,
-  payload: error,
-});
+export const signUpFailed = withMatcher(
+  (error: Error): SignUpFailed =>
+    createAction(UserActionType.SIGN_UP_FAILED, error)
+);
 
-export const signOutStart = () => ({
-  type: UserActionType.SIGN_OUT_START,
-});
+export const signOutStart = withMatcher(
+  (): SignOutStart => createAction(UserActionType.SIGN_OUT_START)
+);
 
-export const signOutSuccess = () => ({
-  type: UserActionType.SIGN_OUT_SUCCESS,
-});
+export const signOutSuccess = withMatcher(
+  (): SignOutSuccess => createAction(UserActionType.SIGN_OUT_SUCCESS)
+);
 
-export const signOutFailed = (error: unknown) => ({
-  type: UserActionType.SIGN_OUT_FAILED,
-  payload: error,
-});
+export const signOutFailed = withMatcher(
+  (error: Error): SignOutFailed =>
+    createAction(UserActionType.SIGN_OUT_FAILED, error)
+);

@@ -1,5 +1,5 @@
 import { User, UserCredential } from "firebase/auth";
-import { DocumentData, DocumentSnapshot } from "firebase/firestore";
+// import { DocumentData, DocumentSnapshot } from "firebase/firestore";
 import {
   all,
   call,
@@ -39,7 +39,7 @@ export function* getSnapshotFromUserAuth(
     );
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
   } catch (error: unknown) {
-    yield put(signInFailed(error));
+    yield put(signInFailed(error as any));
   }
 }
 
@@ -54,7 +54,7 @@ export function* signInWithGoogle(): Generator<
     );
     yield call(getSnapshotFromUserAuth, user);
   } catch (error: unknown) {
-    yield put(signInFailed(error));
+    yield put(signInFailed(error as any));
   }
 }
 
@@ -72,7 +72,7 @@ export function* signInWithEmail(
     );
     yield call(getSnapshotFromUserAuth, user);
   } catch (error: unknown) {
-    yield put(signInFailed(error));
+    yield put(signInFailed(error as any));
   }
 }
 
@@ -86,7 +86,7 @@ export function* isUserAuthenticated(): Generator<
     if (!userAuth) return;
     yield call(getSnapshotFromUserAuth, userAuth);
   } catch (error: unknown) {
-    yield put(signInFailed(error));
+    yield put(signInFailed(error as any));
   }
 }
 
@@ -104,9 +104,9 @@ export function* signUp(
       email,
       password
     );
-    yield put(signUpSuccess(user, { displayName }));
+    yield put(signUpSuccess(user as any, { displayName }));
   } catch (error) {
-    yield put(signUpFailed(error));
+    yield put(signUpFailed(error as any));
   }
 }
 
@@ -115,7 +115,7 @@ export function* signOut(): Generator<CallEffect | PutEffect, void, any> {
     yield call(signOutUser);
     yield put(signOutSuccess());
   } catch (error: unknown) {
-    yield put(signOutFailed(error));
+    yield put(signOutFailed(error as any));
   }
 }
 
