@@ -5,8 +5,6 @@ type FormInputProps = {
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const FormInput: React.FC<FormInputProps> = ({ ...props }) => {
-  const propsValueLength = String(props.value).length;
-
   return (
     <Group>
       <Input {...props} />
