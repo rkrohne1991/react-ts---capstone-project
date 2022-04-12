@@ -13,11 +13,17 @@ import { CategoryItem } from "../../store/types/categoryTypes";
 
 import { CategoryContainer, Title } from "./category.styles";
 
+type CategoryRouteParams = {
+  category: string;
+};
+
 const Category: React.FC = () => {
-  const { category } = useParams<{ category: string }>();
+  const { category } = useParams<
+    keyof CategoryRouteParams
+  >() as CategoryRouteParams;
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);
-  const [products, setProducts] = useState<CategoryItem[]>([]);
+  const [products, setProducts] = useState(categoriesMap[category]);
 
   useEffect(() => {
     category && setProducts(categoriesMap[category]);
