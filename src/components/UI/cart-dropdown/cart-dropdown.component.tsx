@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Button, { ButtonTypeClasses } from "../button/button.component";
 import CartItem from "../../cart-item/cart-item.component";
+import { CartItem as CartItemType } from "../../../store/types/cartTypes";
 
 import {
   CartDropdownContainer,
@@ -24,7 +25,7 @@ const CartDropdown: React.FC = () => {
     <CartDropdownContainer>
       <CartItems>
         {cartItems.length ? (
-          cartItems.map((item: any) => (
+          cartItems.map((item: CartItemType) => (
             <CartItem key={item.id} cartItem={item} />
           ))
         ) : (

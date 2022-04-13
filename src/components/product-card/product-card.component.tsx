@@ -13,9 +13,9 @@ import {
 import { Dispatch } from "redux";
 import { CategoryItem } from "../../store/types/categoryTypes";
 
-interface ProductCardProps {
+type ProductCardProps = {
   product: CategoryItem;
-}
+};
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { name, price, imageUrl } = product;

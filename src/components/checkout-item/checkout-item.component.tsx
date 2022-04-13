@@ -18,9 +18,9 @@ import {
   RemoveButton,
 } from "./checkout-item.styles";
 
-interface CheckoutItemProps {
+type CheckoutItemProps = {
   checkoutItem: CartItem;
-}
+};
 
 const CheckoutItem: React.FC<CheckoutItemProps> = ({ checkoutItem }) => {
   const dispatch = useDispatch();

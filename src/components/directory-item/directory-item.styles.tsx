@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-interface ImageURLprops {
+type ImageURLprops = {
   imageUrl: string;
-}
+};
 
 export const BackgroundImage = styled.div<ImageURLprops>`
   width: 100%;

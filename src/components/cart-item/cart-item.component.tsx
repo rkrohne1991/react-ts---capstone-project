@@ -1,9 +1,9 @@
 import { CartItem as CartItemType } from "../../store/types/cartTypes";
 import { CartItemContainer, ItemDetails } from "./cart-item.styles";
 
-interface CartItemProps {
+type CartItemProps = {
   cartItem: CartItemType;
-}
+};
 
 const CartItem: React.FC<CartItemProps> = ({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;

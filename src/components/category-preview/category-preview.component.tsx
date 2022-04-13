@@ -7,10 +7,10 @@ import {
   Preview,
 } from "./category-preview.styles";
 
-interface CategoryPreviewProps {
+type CategoryPreviewProps = {
   title: string;
   products: CategoryItem[];
-}
+};
 
 const CategoryPreview: React.FC<CategoryPreviewProps> = ({
   title,
