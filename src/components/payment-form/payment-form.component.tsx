@@ -86,8 +86,8 @@ const PaymentForm: React.FC = () => {
     setIsProcessingPayment(false);
 
     if (paymentResult.error) {
-      alert(paymentResult.error);
-      console.log(paymentResult);
+      dispatch(setIsModalOpen(true));
+      dispatch(setModalContent(paymentResult.error.message as string));
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
         dispatch(setIsModalOpen(true));

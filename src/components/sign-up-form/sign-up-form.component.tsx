@@ -6,7 +6,11 @@ import Button, { ButtonTypeClasses } from "../UI/button/button.component";
 
 import { SignUpContainer } from "./sign-up-form.styles";
 import { useDispatch } from "react-redux";
-import { signUpStart } from "../../store/action-creators";
+import {
+  setIsModalOpen,
+  setModalContent,
+  signUpStart,
+} from "../../store/action-creators";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 type FormFields = {
@@ -50,7 +54,8 @@ const SignUpForm: React.FC = () => {
       return;
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      dispatch(setIsModalOpen(true));
+      dispatch(setModalContent("Passwords do not match!"));
       return;
     }
 
@@ -58,9 +63,16 @@ const SignUpForm: React.FC = () => {
       dispatch(signUpStart(email, password, displayName));
       resetFormFields();
     } catch (error) {
-      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS)
-        alert("Cannot create user, email already in use!");
-      else console.error("User creation encountered an error", error);
+      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
+        dispatch(setIsModalOpen(true));
+        dispatch(setModalContent("Cannot create user, email already in use!"));
+      } else {
+        console.error("User creation encountered an error", error);
+        dispatch(setIsModalOpen(true));
+        dispatch(
+          setModalContent(`User creation encountered an error, ${error}`)
+        );
+      }
     }
   };
 
