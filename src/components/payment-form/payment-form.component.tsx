@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { StripeCardElement } from "@stripe/stripe-js";
 
@@ -11,12 +11,14 @@ import { selectCartTotal } from "../../hooks/cart-selector";
 import { selectCurrentUser } from "../../hooks/user-selector";
 import { useState } from "react";
 import { ButtonTypeClasses } from "../UI/button/button.component";
+import { setIsModalOpen, setModalContent } from "../../store/action-creators";
 
 const ifValidCardElement = (
   card: StripeCardElement | null
 ): card is StripeCardElement => card !== null;
 
 const PaymentForm: React.FC = () => {
+  const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
   const amount = useSelector(selectCartTotal);
@@ -38,7 +40,26 @@ const PaymentForm: React.FC = () => {
         cache: "no-cache",
         body: JSON.stringify({ amount: amount * 100 }),
       }
-    ).then((res) => res.json());
+    )
+      .then((res) => {
+        if (res.status >= 400 && res.status < 600) {
+          const errorTemplate = `Bad response from server - ${res.status} ${res.statusText}, Please
+              try again later`;
+
+          dispatch(setIsModalOpen(true));
+          dispatch(setModalContent(errorTemplate));
+          throw new Error(
+            `Bad response from server ${res.status} ${res.statusText}`
+          );
+        }
+
+        return res.json();
+      })
+      .catch((error) => {
+        const errorTemplate = `${error}, Please try again later.`;
+        dispatch(setIsModalOpen(true));
+        dispatch(setModalContent(errorTemplate));
+      });
 
     const {
       paymentIntent: { client_secret },
@@ -46,7 +67,12 @@ const PaymentForm: React.FC = () => {
 
     const cardDetails = elements.getElement(CardElement);
 
-    if (!ifValidCardElement(cardDetails)) return;
+    if (!ifValidCardElement(cardDetails)) {
+      const validityTemplate = `Please check your card details`;
+      dispatch(setIsModalOpen(true));
+      dispatch(setModalContent(validityTemplate));
+      return;
+    }
 
     const paymentResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: {
