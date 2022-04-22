@@ -87,9 +87,11 @@ const PaymentForm: React.FC = () => {
 
     if (paymentResult.error) {
       alert(paymentResult.error);
+      console.log(paymentResult);
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
-        alert("Payment Success");
+        dispatch(setIsModalOpen(true));
+        dispatch(setModalContent("Payment Success"));
       }
     }
   };

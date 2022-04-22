@@ -19,7 +19,7 @@ const CartDropdown: React.FC = () => {
 
   const goToCheckoutHandler = useCallback(() => {
     navigate("/checkout");
-  }, []);
+  }, [navigate]);
 
   return (
     <CartDropdownContainer>
