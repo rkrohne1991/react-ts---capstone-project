@@ -1,7 +1,7 @@
-import { AnyAction } from "redux";
+import { AnyAction } from 'redux';
 
-import { setCartItems, setIsCartOpen } from "../action-creators/cartActions";
-import { CartItem } from "../types/cartTypes";
+import { setCartItems, setIsCartOpen } from '../action-creators/cartActions';
+import { CartItem } from '../types/cartTypes';
 
 export type CartState = {
   readonly isCartOpen: boolean;
@@ -15,7 +15,7 @@ const initialState: CartState = {
 
 const reducer = (
   state: CartState = initialState,
-  action: AnyAction
+  action: AnyAction,
 ): CartState => {
   if (setIsCartOpen.match(action)) {
     return { ...state, isCartOpen: action.payload };

@@ -1,11 +1,11 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 type FormInputLabelProps = {
   shrink?: boolean;
 };
 
-const subColor = "#808080";
-const mainColor = "#000";
+const subColor = '#808080';
+const mainColor = '#000';
 
 const shrinkLabelStyles = css`
   top: -14px;

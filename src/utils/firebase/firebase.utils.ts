@@ -1,4 +1,5 @@
-import { FirebaseApp, FirebaseOptions, initializeApp } from "firebase/app";
+import { useDispatch } from 'react-redux';
+import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithPopup,
@@ -11,7 +12,7 @@ import {
   onAuthStateChanged,
   User,
   NextOrObserver,
-} from "firebase/auth";
+} from 'firebase/auth';
 
 import {
   collection,
@@ -24,8 +25,9 @@ import {
   QueryDocumentSnapshot,
   setDoc,
   writeBatch,
-} from "firebase/firestore";
-import { Category } from "../../store/types/categoryTypes";
+} from 'firebase/firestore';
+import { Category } from '../../store/types/categoryTypes';
+import { setIsModalOpen, setModalContent } from '../../store/action-creators';
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -41,16 +43,14 @@ const firebase: FirebaseApp = initializeApp(firebaseConfig);
 const googleProvider: GoogleAuthProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
-  prompt: "select_account",
+  prompt: 'select_account',
 });
 
 export const auth: Auth = getAuth(firebase);
 
-export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googleProvider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 
-export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, googleProvider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 export const db: Firestore = getFirestore();
 
@@ -60,7 +60,7 @@ export type ObjectsToAdd = {
 
 export const addCollectionAndDocuments = async <T extends ObjectsToAdd>(
   collectionKey: string,
-  objectsToAdd: T[]
+  objectsToAdd: T[],
 ): Promise<void> => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
@@ -71,16 +71,16 @@ export const addCollectionAndDocuments = async <T extends ObjectsToAdd>(
   });
 
   await batch.commit();
-  console.log("done");
+  // console.log('done');
 };
 
 export const getCategoriesAndDocuments = async (): Promise<Category[]> => {
-  const collectionRef = collection(db, "categories");
+  const collectionRef = collection(db, 'categories');
   const q = query(collectionRef);
 
   // await Promise.reject(new Error("new error whoops"));
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => doc.data() as Category);
+  return querySnapshot.docs.map((el) => el.data() as Category);
 };
 
 export type AdditionalInformation = {
@@ -95,11 +95,17 @@ export type UserData = {
 
 export const createUserDocumentFromAuth = async (
   userAuth: User,
-  additionalInformation = {} as AdditionalInformation
+  additionalInformation = {} as AdditionalInformation,
 ): Promise<void | QueryDocumentSnapshot<UserData>> => {
-  if (!userAuth) return;
+  const dispatch = useDispatch();
 
-  const userDocRef = doc(db, "users", userAuth.uid);
+  if (!userAuth) {
+    dispatch(setIsModalOpen(true));
+    dispatch(setModalContent('No user authenticated!'));
+    return undefined;
+  }
+
+  const userDocRef = doc(db, 'users', userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
@@ -114,7 +120,8 @@ export const createUserDocumentFromAuth = async (
         ...additionalInformation,
       });
     } catch (error) {
-      console.log("error creating the user", error);
+      dispatch(setIsModalOpen(true));
+      dispatch(setModalContent(`Error creating the user, ${error}`));
     }
   }
 
@@ -123,36 +130,45 @@ export const createUserDocumentFromAuth = async (
 
 export const createAuthUserWithEmailAndPassword = async (
   email: string,
-  password: string
+  password: string,
 ) => {
-  if (!email || !password) return;
+  if (!email || !password) {
+    const dispatch = useDispatch();
+    dispatch(setIsModalOpen(true));
+    dispatch(setModalContent('Please enter email and password'));
+    return false;
+  }
 
-  return await createUserWithEmailAndPassword(auth, email, password);
+  const awaitCreateUser = await createUserWithEmailAndPassword(auth, email, password);
+  return awaitCreateUser;
 };
 
 export const signInAuthUserWithEmailAndPassword = async (
   email: string,
-  password: string
+  password: string,
 ) => {
-  if (!email || !password) return;
+  if (!email || !password) {
+    const dispatch = useDispatch();
+    dispatch(setIsModalOpen(true));
+    dispatch(setModalContent('Please enter email and password'));
+    return false;
+  }
 
-  return await signInWithEmailAndPassword(auth, email, password);
+  const awaitCreateUser = await signInWithEmailAndPassword(auth, email, password);
+  return awaitCreateUser;
 };
 
 export const signOutUser = () => signOut(auth);
 
-export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
-  onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = (callback: NextOrObserver<User>) => onAuthStateChanged(auth, callback);
 
-export const getCurrentUser = (): Promise<User | null> => {
-  return new Promise<User | null>((resolve, reject) => {
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      (userAuth) => {
-        unsubscribe();
-        resolve(userAuth);
-      },
-      reject
-    );
-  });
-};
+export const getCurrentUser = (): Promise<User | null> => new Promise<User | null>((resolve, reject) => {
+  const unsubscribe = onAuthStateChanged(
+    auth,
+    (userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    },
+    reject,
+  );
+});
