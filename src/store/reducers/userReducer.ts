@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { AnyAction } from 'redux';
 
 import {
   signInFailed,
@@ -6,8 +6,8 @@ import {
   signOutFailed,
   signOutSuccess,
   signUpFailed,
-} from "../action-creators/userActions";
-import { UserData } from "../../utils/firebase/firebase.utils";
+} from '../action-creators/userActions';
+import { UserData } from '../../utils/firebase/firebase.utils';
 
 export type UserState = {
   readonly currentUser: UserData | null;
@@ -21,7 +21,7 @@ const initialState: UserState = {
   error: null,
 };
 
-const reducer = (state: UserState = initialState, action: AnyAction) => {
+const reducer = (action: AnyAction, state: UserState = initialState) => {
   if (signInSuccess.match(action)) {
     return { ...state, currentUser: action.payload };
   }
@@ -31,9 +31,9 @@ const reducer = (state: UserState = initialState, action: AnyAction) => {
   }
 
   if (
-    signInFailed.match(action) ||
-    signUpFailed.match(action) ||
-    signOutFailed.match(action)
+    signInFailed.match(action)
+    || signUpFailed.match(action)
+    || signOutFailed.match(action)
   ) {
     return { ...state, error: action.payload };
   }

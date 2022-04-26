@@ -1,22 +1,23 @@
+import React from 'react';
+
 import {
   BaseButton,
   GoogleSignInButton,
   InvertedButton,
   ButtonSpinner,
-} from "./button.styles";
+} from './button.styles';
 
 export enum ButtonTypeClasses {
-  base = "base",
-  google = "google-sign-in",
-  inverted = "inverted",
+  base = 'base',
+  google = 'google-sign-in',
+  inverted = 'inverted',
 }
 
-const getButton = (buttonType = ButtonTypeClasses.base): typeof BaseButton =>
-  ({
-    [ButtonTypeClasses.base]: BaseButton,
-    [ButtonTypeClasses.google]: GoogleSignInButton,
-    [ButtonTypeClasses.inverted]: InvertedButton,
-  }[buttonType]);
+const getButton = (buttonType = ButtonTypeClasses.base): typeof BaseButton => ({
+  [ButtonTypeClasses.base]: BaseButton,
+  [ButtonTypeClasses.google]: GoogleSignInButton,
+  [ButtonTypeClasses.inverted]: InvertedButton,
+}[buttonType]);
 
 export type ButtonProps = {
   buttonType?: ButtonTypeClasses;

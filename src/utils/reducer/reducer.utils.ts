@@ -1,7 +1,7 @@
-import { AnyAction } from "redux";
+import { AnyAction } from 'redux';
 
 type Matchable<AC extends () => AnyAction> = AC & {
-  type: ReturnType<AC>["type"];
+  type: ReturnType<AC>['type'];
   match(action: AnyAction): action is ReturnType<AC>;
 };
 
@@ -14,10 +14,11 @@ export function withMatcher<
 >(actionCreator: AC): Matchable<AC>;
 
 export function withMatcher(actionCreator: Function) {
-  const type = actionCreator().type;
+  const { type } = actionCreator();
   return Object.assign(actionCreator, {
     type,
     match(action: AnyAction) {
+      console.log(action)
       return action.type === type;
     },
   });
