@@ -1,16 +1,18 @@
-import { useState } from "react";
-import { FirebaseError } from "firebase/app";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { FirebaseError } from 'firebase/app';
+import { useDispatch } from 'react-redux';
 
-import FormInput from "../form-input/form-input.component";
+import FormInput from '../form-input/form-input.component';
 
-import Button, { ButtonTypeClasses } from "../UI/button/button.component";
+import Button, { ButtonTypeClasses } from '../UI/button/button.component';
 
-import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
+import { SignInContainer, ButtonsContainer } from './sign-in-form.styles';
 import {
   emailSignInStart,
   googleSignInStart,
-} from "../../store/action-creators";
+  setIsModalOpen,
+  setModalContent,
+} from '../../store/action-creators';
 
 type FormFields = {
   email: string;
@@ -18,8 +20,8 @@ type FormFields = {
 };
 
 const defaultFormFields: FormFields = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
 const SignInForm: React.FC = () => {
@@ -51,7 +53,9 @@ const SignInForm: React.FC = () => {
       resetFormFields();
     } catch (error: unknown) {
       const err = error as FirebaseError;
-      console.log("user sign in failed", err);
+      dispatch(setIsModalOpen(true));
+      dispatch(setModalContent(`User sign in failed, ${err}`));
+      // console.log('user sign in failed', err);
     }
   };
 
@@ -65,7 +69,7 @@ const SignInForm: React.FC = () => {
           name="email"
           type="email"
           value={email}
-          required={true}
+          required
           onChange={handleChange}
         />
 
@@ -74,7 +78,7 @@ const SignInForm: React.FC = () => {
           name="password"
           type="password"
           value={password}
-          required={true}
+          required
           onChange={handleChange}
         />
 

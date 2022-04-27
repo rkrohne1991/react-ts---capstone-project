@@ -1,28 +1,28 @@
-import { Fragment } from "react";
-import { Outlet } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { Fragment } from 'react';
+import { Outlet } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   NavigationContainer,
   LogoContainer,
   NavLinksContainer,
   NavLink,
-} from "./navigation.styles";
+} from './navigation.styles';
 
-import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
+import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 
-import CartIcon from "../../components/UI/cart-icon/cart-icon.component";
-import CartDropdown from "../../components/UI/cart-dropdown/cart-dropdown.component";
-import Modal from "../../components/UI/modal/modal.component";
+import CartIcon from '../../components/UI/cart-icon/cart-icon.component';
+import CartDropdown from '../../components/UI/cart-dropdown/cart-dropdown.component';
+import Modal from '../../components/UI/modal/modal.component';
 
-import { selectCurrentUser } from "../../hooks/user-selector";
-import { RootState } from "../../store";
-import { selectIsCartOpen } from "../../hooks/cart-selector";
-import { setIsModalOpen, signOutStart } from "../../store/action-creators";
+import { selectCurrentUser } from '../../hooks/user-selector';
+import { RootState } from '../../store';
+import { selectIsCartOpen } from '../../hooks/cart-selector';
+import { setIsModalOpen, signOutStart } from '../../store/action-creators';
 import {
   selectIsModalOpen,
   selectModalContent,
-} from "../../hooks/modal-selector";
+} from '../../hooks/modal-selector';
 
 const Navigation: React.FC = () => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const Navigation: React.FC = () => {
 
   const signIn = <NavLink to="/auth">SIGN IN</NavLink>;
   return (
-    <Fragment>
+    <>
       <NavigationContainer>
         <LogoContainer to="/">
           <CrwnLogo />
@@ -59,7 +59,7 @@ const Navigation: React.FC = () => {
       </NavigationContainer>
       {isModalOpen && <Modal onClose={hideModalHandler}>{modalContent}</Modal>}
       <Outlet />
-    </Fragment>
+    </>
   );
 };
 

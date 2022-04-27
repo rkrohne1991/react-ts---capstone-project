@@ -1,16 +1,20 @@
-import { DirectoryContainer } from "./directory.styles";
+import React from 'react';
 
-import DirectoryItem from "../directory-item/directory-item.component";
+import { DirectoryContainer } from './directory.styles';
 
-import CATEGORIES_DATA from "../../categories-data.json";
-import { CategoryHome } from "../../store/types/categoryTypes";
+import DirectoryItem from '../directory-item/directory-item.component';
+
+import CATEGORIES_DATA from '../../categories-data.json';
+import { CategoryHome } from '../../store/types/categoryTypes';
 
 const Directory: React.FC = () => {
   const categories: CategoryHome[] = CATEGORIES_DATA;
 
   return (
     <DirectoryContainer>
-      {categories.map(({ id, title, imageUrl, route }) => (
+      {categories.map(({
+        id, title, imageUrl, route,
+      }) => (
         <DirectoryItem
           key={id}
           id={id}

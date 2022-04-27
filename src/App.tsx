@@ -1,20 +1,20 @@
-import { useEffect, lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React, { useEffect, lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import { checkUserSession } from "./store/action-creators";
-import Spinner from "./components/UI/spinner/spinner.component";
-import { GlobalStyle } from "./global.styles";
+import { checkUserSession } from './store/action-creators';
+import Spinner from './components/UI/spinner/spinner.component';
+import { GlobalStyle } from './global.styles';
 
-const Home = lazy(() => import("./routes/home/home.component"));
+const Home = lazy(() => import('./routes/home/home.component'));
 const Navigation = lazy(
-  () => import("./routes/navigation/navigation.component")
+  () => import('./routes/navigation/navigation.component'),
 );
-const Shop = lazy(() => import("./routes/shop/shop.component"));
+const Shop = lazy(() => import('./routes/shop/shop.component'));
 const Authentication = lazy(
-  () => import("./routes/authentication/authentication.component")
+  () => import('./routes/authentication/authentication.component'),
 );
-const Checkout = lazy(() => import("./routes/checkout/checkout.component"));
+const Checkout = lazy(() => import('./routes/checkout/checkout.component'));
 
 const App: React.FC = () => {
   const dispatch = useDispatch();

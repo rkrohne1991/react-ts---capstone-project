@@ -1,11 +1,13 @@
-import { takeLatest, all, call, put } from "typed-redux-saga/macro";
+import {
+  takeLatest, all, call, put,
+} from 'typed-redux-saga/macro';
 
-import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
+import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
 import {
   fetchCategoriesFailed,
   fetchCategoriesSuccess,
-} from "../action-creators/categoriesAction";
-import { CategoriesActionType } from "../action-types/categoriesActionTypes";
+} from '../action-creators/categoriesAction';
+import { CategoriesActionType } from '../action-types/categoriesActionTypes';
 
 export function* fetchCategoriesAsync() {
   try {
@@ -19,7 +21,7 @@ export function* fetchCategoriesAsync() {
 export function* onFetchCategories() {
   yield* takeLatest(
     CategoriesActionType.FETCH_CATEGORIES_START,
-    fetchCategoriesAsync
+    fetchCategoriesAsync,
   );
 }
 

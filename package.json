@@ -30,21 +30,32 @@
     "redux-thunk": "^2.4.1",
     "reselect": "^4.1.5",
     "stripe": "^8.215.0",
+    "styled-components": "^5.3.5",
     "typescript": "^4.6.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "typed-redux-saga": "^1.4.0"
   },
   "devDependencies": {
     "@types/node-sass": "^4.11.2",
     "@types/styled-components": "^5.1.24",
-    "node-sass": "^7.0.1",
-    "styled-components": "^5.3.5",
-    "typed-redux-saga": "^1.4.0"
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
+    "node-sass": "^7.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint --debug 'src/**/*.{js,jsx,ts,tsx}'"
   },
   "eslintConfig": {
     "extends": [
@@ -63,5 +74,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "eslintIgnore": ["logger.ts", "reducer.utils.ts"]
 }

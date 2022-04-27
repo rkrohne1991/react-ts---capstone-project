@@ -1,5 +1,5 @@
-import { AnyAction } from "redux";
-import { setIsModalOpen, setModalContent } from "../action-creators";
+import { AnyAction } from 'redux';
+import { setIsModalOpen, setModalContent } from '../action-creators';
 
 export type ModalState = {
   readonly isModalOpen: boolean;
@@ -8,7 +8,7 @@ export type ModalState = {
 
 const initialState: ModalState = {
   isModalOpen: false,
-  modalData: "",
+  modalData: '',
 };
 
 const reducer = (state: ModalState = initialState, action: AnyAction) => {

@@ -1,17 +1,17 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 
-import FormInput from "../form-input/form-input.component";
+import { useDispatch } from 'react-redux';
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
+import FormInput from '../form-input/form-input.component';
 
-import Button, { ButtonTypeClasses } from "../UI/button/button.component";
+import Button, { ButtonTypeClasses } from '../UI/button/button.component';
 
-import { SignUpContainer } from "./sign-up-form.styles";
-import { useDispatch } from "react-redux";
+import { SignUpContainer } from './sign-up-form.styles';
 import {
   setIsModalOpen,
   setModalContent,
   signUpStart,
-} from "../../store/action-creators";
-import { AuthError, AuthErrorCodes } from "firebase/auth";
+} from '../../store/action-creators';
 
 type FormFields = {
   displayName: string;
@@ -21,16 +21,18 @@ type FormFields = {
 };
 
 const defaultFormFields: FormFields = {
-  displayName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
+  displayName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
 };
 
 const SignUpForm: React.FC = () => {
   const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayName, email, password, confirmPassword } = formFields;
+  const {
+    displayName, email, password, confirmPassword,
+  } = formFields;
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -46,16 +48,15 @@ const SignUpForm: React.FC = () => {
     event.preventDefault();
 
     if (
-      displayName.length === 0 ||
-      email.length === 0 ||
-      password.length === 0 ||
-      confirmPassword.length === 0
-    )
-      return;
+      displayName.length === 0
+      || email.length === 0
+      || password.length === 0
+      || confirmPassword.length === 0
+    ) return;
 
     if (password !== confirmPassword) {
       dispatch(setIsModalOpen(true));
-      dispatch(setModalContent("Passwords do not match!"));
+      dispatch(setModalContent('Passwords do not match!'));
       return;
     }
 
@@ -65,12 +66,12 @@ const SignUpForm: React.FC = () => {
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         dispatch(setIsModalOpen(true));
-        dispatch(setModalContent("Cannot create user, email already in use!"));
+        dispatch(setModalContent('Cannot create user, email already in use!'));
       } else {
-        console.error("User creation encountered an error", error);
+        // console.error('User creation encountered an error', error);
         dispatch(setIsModalOpen(true));
         dispatch(
-          setModalContent(`User creation encountered an error, ${error}`)
+          setModalContent(`User creation encountered an error, ${error}`),
         );
       }
     }
@@ -86,7 +87,7 @@ const SignUpForm: React.FC = () => {
           name="displayName"
           type="text"
           value={displayName}
-          required={true}
+          required
           onChange={handleChange}
         />
 
@@ -95,7 +96,7 @@ const SignUpForm: React.FC = () => {
           name="email"
           type="email"
           value={email}
-          required={true}
+          required
           onChange={handleChange}
         />
 
@@ -104,7 +105,7 @@ const SignUpForm: React.FC = () => {
           name="password"
           type="password"
           value={password}
-          required={true}
+          required
           onChange={handleChange}
         />
 
@@ -113,7 +114,7 @@ const SignUpForm: React.FC = () => {
           name="confirmPassword"
           type="password"
           value={confirmPassword}
-          required={true}
+          required
           onChange={handleChange}
         />
 

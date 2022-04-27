@@ -1,6 +1,5 @@
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from '@stripe/stripe-js';
 
-const StripeKey: string | undefined =
-  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
+const StripeKey: string | undefined = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
 
-export const stripePromise = loadStripe(StripeKey || "");
+export const stripePromise = loadStripe(StripeKey || '');

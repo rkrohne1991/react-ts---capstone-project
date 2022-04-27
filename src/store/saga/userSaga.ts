@@ -1,5 +1,7 @@
-import { takeLatest, all, call, put } from "typed-redux-saga/macro";
-import { User } from "firebase/auth";
+import {
+  takeLatest, all, call, put,
+} from 'typed-redux-saga/macro';
+import { User } from 'firebase/auth';
 
 import {
   AdditionalInformation,
@@ -9,7 +11,7 @@ import {
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
   signOutUser,
-} from "../../utils/firebase/firebase.utils";
+} from '../../utils/firebase/firebase.utils';
 import {
   signInFailed,
   signInSuccess,
@@ -17,29 +19,29 @@ import {
   signOutSuccess,
   signUpFailed,
   signUpSuccess,
-} from "../action-creators";
+} from '../action-creators';
 
-import { UserActionType } from "../action-types/userActionTypes";
+import { UserActionType } from '../action-types/userActionTypes';
 
 import {
   EmailSignInStart,
   SignUpStart,
   SignUpSuccess,
-} from "../actions/userActions";
+} from '../actions/userActions';
 
 export function* getSnapshotFromUserAuth(
   userAuth: User,
-  additionalDetails?: AdditionalInformation
+  additionalDetails?: AdditionalInformation,
 ) {
   try {
     const userSnapshot = yield* call(
       createUserDocumentFromAuth,
       userAuth,
-      additionalDetails
+      additionalDetails,
     );
     if (userSnapshot) {
       yield* put(
-        signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+        signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }),
       );
     }
   } catch (error) {
@@ -63,11 +65,10 @@ export function* signInWithEmail({
     const userCredential = yield* call(
       signInAuthUserWithEmailAndPassword,
       email,
-      password
+      password,
     );
 
-    if (userCredential)
-      yield* call(getSnapshotFromUserAuth, userCredential.user);
+    if (userCredential) yield* call(getSnapshotFromUserAuth, userCredential.user);
   } catch (error) {
     yield* put(signInFailed(error as Error));
   }
@@ -90,11 +91,10 @@ export function* signUp({
     const userCredential = yield* call(
       createAuthUserWithEmailAndPassword,
       email,
-      password
+      password,
     );
 
-    if (userCredential)
-      yield* put(signUpSuccess(userCredential.user, { displayName }));
+    if (userCredential) yield* put(signUpSuccess(userCredential.user, { displayName }));
   } catch (error) {
     yield* put(signUpFailed(error as Error));
   }

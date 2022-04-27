@@ -1,17 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
 
-import { addItemToCart } from "../../store/action-creators";
-import { selectCartItems } from "../../hooks/cart-selector";
-import Button, { ButtonTypeClasses } from "../UI/button/button.component";
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
+
+import { addItemToCart } from '../../store/action-creators';
+import { selectCartItems } from '../../hooks/cart-selector';
+import Button, { ButtonTypeClasses } from '../UI/button/button.component';
 
 import {
   ProductCartContainer,
   Footer,
   Name,
   Price,
-} from "./product-card.styles";
-import { Dispatch } from "redux";
-import { CategoryItem } from "../../store/types/categoryTypes";
+} from './product-card.styles';
+import { CategoryItem } from '../../store/types/categoryTypes';
 
 type ProductCardProps = {
   product: CategoryItem;
@@ -22,8 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const dispatch = useDispatch<Dispatch>();
   const cartItems = useSelector(selectCartItems);
-  const addProductToCart = (_: React.MouseEvent<HTMLButtonElement>) =>
-    dispatch(addItemToCart(cartItems, product));
+  const addProductToCart = (_: React.MouseEvent<HTMLButtonElement>) => dispatch(addItemToCart(cartItems, product));
 
   return (
     <ProductCartContainer>
